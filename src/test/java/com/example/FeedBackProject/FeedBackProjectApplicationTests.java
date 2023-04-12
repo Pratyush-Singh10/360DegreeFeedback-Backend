@@ -1,0 +1,13 @@
+package com.example.FeedBackProject;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class FeedBackProjectApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
