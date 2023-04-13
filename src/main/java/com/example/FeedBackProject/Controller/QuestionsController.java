@@ -11,14 +11,14 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class QuestionsController {
     @Autowired
-    private QuestionsService Qservice;
+    private QuestionsService questionsService;
 
     @GetMapping("/questions")
     public List<Questions> getQuestions(){
-        return Qservice.getQuestions();
+        return questionsService.getQuestions();
     }
     @PostMapping("/questions")
-    public Questions postquestions(@RequestBody Questions ques){
-        return Qservice.postQuestions(ques);
+    public Questions postQuestions(@RequestBody Questions ques){
+        return questionsService.postQuestions(ques);
     }
 }
