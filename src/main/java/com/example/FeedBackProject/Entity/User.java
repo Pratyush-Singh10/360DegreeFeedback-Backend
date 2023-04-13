@@ -13,10 +13,11 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name="User")
 public class User {
 
     @Id
-    private String  id;
+    private String  EmpId;
 
     private String emailId;
 
@@ -24,4 +25,8 @@ public class User {
 
     private String role;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5bf52053f9a31eeeaae2cec9ae3d16f8fdd5ff20
 }

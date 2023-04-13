@@ -1,5 +1,6 @@
 package com.example.FeedBackProject.Services;
 
+<<<<<<< HEAD
 import com.example.FeedBackProject.Entity.User;
 import com.example.FeedBackProject.Repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -46,4 +47,7 @@ public class UserService {
         User newUser = (User) response.get("user");
         return response;
     }
+=======
+public class UserService {
+>>>>>>> 5bf52053f9a31eeeaae2cec9ae3d16f8fdd5ff20
 }

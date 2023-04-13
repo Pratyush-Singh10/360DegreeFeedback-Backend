@@ -1,5 +1,6 @@
 package com.example.FeedBackProject.Controller;
 
+<<<<<<< HEAD
 import com.example.FeedBackProject.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,4 +22,7 @@ public class UserController {
         Map<String,Object> response = userService.login(token);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+=======
+public class UserController {
+>>>>>>> 5bf52053f9a31eeeaae2cec9ae3d16f8fdd5ff20
 }

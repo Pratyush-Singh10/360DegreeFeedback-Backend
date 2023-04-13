@@ -10,11 +10,12 @@ import javax.validation.constraints.Email;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name="FeedbackRequest")
 public class FeedbackRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int FeedbackId;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName = "emailId",name = "feedbackReceiverEmail")
@@ -24,9 +25,9 @@ public class FeedbackRequest {
     @JoinColumn(referencedColumnName = "emailId",name = "feedbackGiverEmail")
     private User gEmail;
 
-    private boolean status;
-
+    @Column(nullable = true)
     private String comment;
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int status;
 
-    private int rating;
 }
