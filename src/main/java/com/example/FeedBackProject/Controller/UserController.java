@@ -34,4 +34,10 @@ public class UserController {
     public User getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
+
+    @PutMapping("/updateRole/{email}")
+    public ResponseEntity<User> updateRole(@RequestBody String newRole, @PathVariable String email) {
+        User updateUser = this.userService.updateUserRole(newRole,email);
+        return new ResponseEntity<>(updateUser,HttpStatus.CREATED);
+    }
 }
