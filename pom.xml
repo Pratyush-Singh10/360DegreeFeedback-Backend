@@ -59,16 +59,8 @@
 			<artifactId>modelmapper</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-<<<<<<< HEAD
-
-
-=======
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-		</dependency>
->>>>>>> be45a69856c9dc39ec73f8b106f15e47a03d0605
+
 	</dependencies>
 
 	<build>
