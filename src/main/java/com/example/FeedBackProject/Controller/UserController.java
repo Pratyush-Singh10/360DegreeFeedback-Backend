@@ -18,6 +18,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/allEmp")
+    public List<User> getAllUser()
+    {
+        return userService.getAllUser();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody String token) {
         Map<String, Object> response = userService.login(token);

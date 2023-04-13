@@ -17,6 +17,11 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public List<User> getAllUser() {
+            return userRepository.findAll();
+    }
+
     public Map<String, Object> login (String token){
 
         String[] chunks = token.split("\\.");
