@@ -4,10 +4,11 @@ import com.example.FeedBackProject.Entity.User;
 import com.example.FeedBackProject.Repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -45,5 +46,9 @@ public class UserService {
         }
         User newUser = (User) response.get("user");
         return response;
+    }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmailId(email);
     }
 }
