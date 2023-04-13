@@ -5,7 +5,7 @@ import javax.validation.constraints.Email;
 
 public class UserDTO {
 
-    private String  id;
+    private String  EmpId;
 
     @Email
     private String emailId;
@@ -14,5 +14,4 @@ public class UserDTO {
 
     private String role;
 
-    private int final_rating;
 }

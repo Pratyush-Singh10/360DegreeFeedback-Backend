@@ -1,7 +1,6 @@
 package com.example.FeedBackProject.Controller;
 
 import com.example.FeedBackProject.Entity.Questions;
-import com.example.FeedBackProject.Request.QuestionsRequest;
 import com.example.FeedBackProject.Services.QuestionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

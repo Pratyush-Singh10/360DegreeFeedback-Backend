@@ -17,9 +17,9 @@ import javax.persistence.Id;
 public class Questions {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Ques_Id;
+    private Long QuesId;
     private String Questions;
-    private Boolean status;
+    private int active;
 
 
 }
