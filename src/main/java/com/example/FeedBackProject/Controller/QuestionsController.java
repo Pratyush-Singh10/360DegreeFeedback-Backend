@@ -13,7 +13,7 @@ public class QuestionsController {
     @Autowired
     private QuestionsService questionsService;
 
-    @GetMapping("/questions")
+    @GetMapping("/questions/valid")
     public List<Questions> getQuestions(){
         return questionsService.getQuestions();
     }
