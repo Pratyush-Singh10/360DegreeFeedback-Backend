@@ -24,6 +24,4 @@ public class User {
 
     private String role;
 
-    private int final_rating;
-
 }
