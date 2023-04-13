@@ -17,8 +17,11 @@ public class QuestionsService {
         return questionsRepository.findAll();
     }
 
-
     public Questions postQuestions(Questions ques){
         return questionsRepository.save(ques);
+    }
+
+    public List<Questions> getValidQuestions(){
+        return questionsRepository.find();
     }
 }

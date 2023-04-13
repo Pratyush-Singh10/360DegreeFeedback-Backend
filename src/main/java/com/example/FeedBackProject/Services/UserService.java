@@ -6,7 +6,10 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.Null;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,11 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public List<User> getAllUser() {
+            return userRepository.findAll();
+    }
+
     public Map<String, Object> login (String token){
 
         String[] chunks = token.split("\\.");
@@ -51,4 +59,13 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
     }
+
+    public User updateUserRole(String role, String email) {
+        User user = userRepository.findByEmailId(email);
+        user.setRole(role);
+        userRepository.save(user);
+        return user;
+    }
+
+
 }
