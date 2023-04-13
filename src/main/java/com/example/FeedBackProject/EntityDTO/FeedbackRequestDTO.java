@@ -18,5 +18,11 @@ public class FeedbackRequestDTO {
 
     private String comment;
 
-    private int rating;
+    private int Q1;
+    private int Q2;
+    private int Q3;
+    private int Q4;
+    private int Q5;
+    private int Q6;
+
 }
