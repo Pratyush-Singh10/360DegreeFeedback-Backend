@@ -21,7 +21,7 @@ public class QuestionsController {
     public Questions postQuestions(@RequestBody Questions ques){
         return questionsService.postQuestions(ques);
     }
-    @GetMapping("/questions/valid")
+    @GetMapping("/questions/checkValid")
     public List<Questions> getValidQuestions(){
         return questionsService.getValidQuestions();
     }
