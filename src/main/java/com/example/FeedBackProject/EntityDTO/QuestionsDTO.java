@@ -1,7 +1,7 @@
 package com.example.FeedBackProject.EntityDTO;
 
 public class QuestionsDTO {
-    private Long Ques_Id;
+    private Long QuesId;
     private String Questions;
-    private Boolean status;
+    private int active;
 }
