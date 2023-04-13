@@ -17,13 +17,9 @@ public class FeedbackRequest {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int FeedbackId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "emailId",name = "feedbackReceiverEmail")
-    private User rEmail;
+    private String rEmail;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName = "emailId",name = "feedbackGiverEmail")
-    private User gEmail;
+    private String gEmail;
 
     @Column(nullable = true)
     private String comment;

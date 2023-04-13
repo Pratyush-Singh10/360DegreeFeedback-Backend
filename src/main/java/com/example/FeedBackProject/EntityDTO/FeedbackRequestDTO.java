@@ -8,10 +8,8 @@ import javax.validation.constraints.Email;
 public class FeedbackRequestDTO {
     private int FeedbackId;
 
-    @Email
-    private User rEmail;
+    private String rEmail;
 
-    @Email
     private String gEmail;
 
     private int status;

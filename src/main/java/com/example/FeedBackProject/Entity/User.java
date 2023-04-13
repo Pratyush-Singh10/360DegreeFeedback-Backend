@@ -10,20 +10,22 @@ import javax.validation.constraints.Email;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="User")
 public class User {
 
     @Id
-    private String  EmpId;
-
-    private String emailId;
-
+    @Column(name = "Emp_Id")
+    private String id;
     private String name;
-
+    private String emailId;
     private String role;
 
-
+    public User(String empId, String name, String emailId, String role) {
+        this.id = empId;
+        this.name = name;
+        this.emailId = emailId;
+        this.role = role;
+    }
 }
