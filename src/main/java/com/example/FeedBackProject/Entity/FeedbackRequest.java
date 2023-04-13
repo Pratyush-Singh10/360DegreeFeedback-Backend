@@ -24,9 +24,14 @@ public class FeedbackRequest {
     @JoinColumn(referencedColumnName = "emailId",name = "feedbackGiverEmail")
     private User gEmail;
 
-    private boolean status;
+    private int Q1;
+    private int Q2;
+    private int Q3;
+    private int Q4;
+    private int Q5;
+    private int Q6;
 
     private String comment;
+    private boolean status;
 
-    private int rating;
 }
