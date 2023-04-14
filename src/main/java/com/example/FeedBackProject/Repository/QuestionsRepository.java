@@ -9,14 +9,9 @@ import java.util.List;
 
 @Repository
 public interface QuestionsRepository extends JpaRepository<Questions,Long> {
-<<<<<<< HEAD
-    @Query(
-            value="select * from questions where active=1 ",
-            nativeQuery = true
-    )
-=======
+
+
 
     @Query(value="select * from questions where active=1 ", nativeQuery = true)
->>>>>>> 4e9c0c1fa77752cf12537f27e9f2a53a6c80d1f2
     public List<Questions> find();
 }

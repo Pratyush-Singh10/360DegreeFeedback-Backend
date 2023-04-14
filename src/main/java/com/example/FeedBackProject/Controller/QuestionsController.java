@@ -13,10 +13,6 @@ public class QuestionsController {
     @Autowired
     private QuestionsService questionsService;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d455e63d907fae97afbcec14c764af558327f266
     @PostMapping("/questions")
     public Questions postQuestions(@RequestBody Questions ques){
         return questionsService.postQuestions(ques);
