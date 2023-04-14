@@ -23,7 +23,7 @@ public class QuestionsService {
 
     public Questions updateStatus(long id, int val) {
         Questions newQue = questionsRepository.findById(id).orElse(null);
-        newQue.setActive(val);
+        newQue.setStatus(val);
         questionsRepository.save(newQue);
         return newQue;
     }

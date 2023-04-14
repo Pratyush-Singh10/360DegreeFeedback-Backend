@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 import java.util.Map;
@@ -20,17 +21,13 @@ import java.util.Map;
 public class ResultController {
 
     @Autowired
-<<<<<<< HEAD
     private ResultService resultService;
     @GetMapping("/getRating/{id}")
     public List<Object[]> getRatings(@PathVariable Long id) {
         return resultService.findRating(id);
-=======
-    ResultService resultService;
-
-    @PostMapping(value = "/storeRes")
-    public Map<Integer, Integer> storeResult(@RequestBody Map<Integer, Integer> map) {
+    }
+    @PostMapping("/storeRes")
+    public Map<String, Object> storeResult(@RequestBody Map<String , Object> map) {
         return resultService.storeResult(map);
->>>>>>> 0496deb9be98e2f59a5cf117ace39722ad477074
     }
 }
