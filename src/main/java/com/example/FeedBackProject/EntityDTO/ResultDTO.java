@@ -10,8 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 public class ResultDTO {
-  private FeedbackRequest FeedbackId;
-  private Questions QuesId;
 
-    private int result;
+  private Long feedbackAttributeId;
+  private FeedbackRequest feedbackId;
+  private Questions attributeId;
+  private int rating;
+
+
 }

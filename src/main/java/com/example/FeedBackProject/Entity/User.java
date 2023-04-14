@@ -17,25 +17,24 @@ import javax.validation.constraints.Email;
 public class User {
 
     @Id
-    @Column(name = "Emp_Id")
-    private String id;
+    private String empId;
     private String name;
     private String emailId;
     private String role;
 
     public User(String empId, String name, String emailId, String role) {
-        this.id = empId;
+        this.empId = empId;
         this.name = name;
         this.emailId = emailId;
         this.role = role;
     }
 
     public String getId() {
-        return id;
+        return empId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.empId = id;
     }
 
     public String getName() {

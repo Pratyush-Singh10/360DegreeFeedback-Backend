@@ -5,7 +5,7 @@ import javax.validation.constraints.Email;
 
 public class UserDTO {
 
-    private String  EmpId;
+    private String  empId;
 
     @Email
     private String emailId;
