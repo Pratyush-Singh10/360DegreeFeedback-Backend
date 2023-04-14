@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 
@@ -29,11 +31,14 @@ public class FeedbackRequestController {
 
 
 
-
-
     @GetMapping("/pendingResponses/{email}")
     public List<Object[]> findPendingResponses(@PathVariable String email) {
         return feedbackRequestService.findPendingResponses(email);
+    }
+
+    @GetMapping("/completedResponses/{email}")
+    public List<Object[]> findCompletedResponses(@PathVariable String email) {
+        return feedbackRequestService.findCompletedResponses(email);
     }
 
 }

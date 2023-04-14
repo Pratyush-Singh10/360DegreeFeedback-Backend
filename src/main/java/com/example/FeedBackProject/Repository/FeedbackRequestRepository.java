@@ -11,9 +11,10 @@ import java.util.List;
 @Repository
 public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest, Long> {
 
-    @Query(value = "select fr.feedback_requester,e.name,e.emp_id from feedback_request fr, user e "+
+    @Query(value = "select fr.feedback_requester,e.name,e.emp_id, fr.feedback_id  from feedback_request fr, user e "+
             "where fr.status=0 and fr.feedback_provider=:email and fr.feedback_requester=e.email_id", nativeQuery = true)
     List<Object[]> findReceiverFeedbackDetails(@Param("email") String email);
+
 
 
     @Query(value = "select e.name,e.emp_id,fr.feedback_provider from feedback_request fr, user e "+
@@ -22,6 +23,7 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
 
     @Query(value = "select e.name,e.emp_id,fr.feedback_provider from feedback_request fr, user e "+
             "where fr.feedback_requester=:email and status=1 and fr.feedback_provider=e.email_id;",nativeQuery = true)
+
     List<Object[]> findCompletedResponses(@Param("email") String email);
 
 
