@@ -32,7 +32,6 @@ public class UserController {
     public User getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
-
     @GetMapping("/getDetails")
     public List<User> getAllUser(){
         return userService.getAllUser();
@@ -46,5 +45,6 @@ public class UserController {
     @PutMapping("/update/{id}")
     public User updateUser(@PathVariable String id,@RequestBody User usr){
         return userService.updateUser(id,usr);
+
     }
 }

@@ -13,15 +13,11 @@ public class QuestionsController {
     @Autowired
     private QuestionsService questionsService;
 
-    @GetMapping("/questions")
-    public List<Questions> getQuestions(){
-        return questionsService.getQuestions();
-    }
     @PostMapping("/questions")
     public Questions postQuestions(@RequestBody Questions ques){
         return questionsService.postQuestions(ques);
     }
-    @GetMapping("/questions/valid")
+    @GetMapping("/questions/checkValid")
     public List<Questions> getValidQuestions(){
         return questionsService.getValidQuestions();
     }
