@@ -30,6 +30,7 @@ public class ResultService {
         return ratings;
     }
 
+<<<<<<< HEAD
     public Map<String, Object> storeResult(Map<String, Object> map) {
         Map<String, Object> response = new HashMap<>();
         for (String m : map.keySet()) {
@@ -49,4 +50,6 @@ public class ResultService {
             return response;
         }
     }
+=======
+>>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
 }
