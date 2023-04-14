@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.validation.constraints.Null;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,5 +52,21 @@ public class UserService {
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
+    }
+    public List<User> getAllUser(){
+        return userRepository.findAll();
+    }
+
+//    public User getUserById(String empId){
+//        User Null = null;
+//        return userRepository.findById(empId).orElse(Null);
+//    }
+
+    public User updateUser(String id,User usr){
+        User obj=userRepository.findById(id).orElse(null);
+        if(usr.getName()!=null)obj.setName(usr.getName());
+        if(usr.getEmailId()!=null) obj.setEmailId(usr.getEmailId());
+        if(usr.getRole()!=null) obj.setRole(usr.getRole());
+        return userRepository.save(obj);
     }
 }
