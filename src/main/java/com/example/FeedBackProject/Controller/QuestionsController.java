@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @CrossOrigin(origins="http://localhost:3000/")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api")
 public class QuestionsController {
     @Autowired
     private QuestionsService questionsService;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> d455e63d907fae97afbcec14c764af558327f266
     @PostMapping("/questions")
     public Questions postQuestions(@RequestBody Questions ques){
         return questionsService.postQuestions(ques);
