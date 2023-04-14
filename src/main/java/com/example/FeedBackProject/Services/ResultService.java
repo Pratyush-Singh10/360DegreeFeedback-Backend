@@ -10,6 +10,8 @@ import com.example.FeedBackProject.Repository.ResultRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ResultService {
         @Autowired
@@ -21,6 +23,9 @@ public class ResultService {
         @Autowired
         private QuestionsRepository questionsRepository;
 
-
+        public List<Object[]> findRating(Long id) {
+                List<Object[]> ratings = resultRepository.findRating(id);
+                return ratings;
+        }
 
 }
