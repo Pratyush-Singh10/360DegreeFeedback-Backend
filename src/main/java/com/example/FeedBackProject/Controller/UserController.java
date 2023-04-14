@@ -1,6 +1,7 @@
 package com.example.FeedBackProject.Controller;
 
 import com.example.FeedBackProject.Entity.User;
+import com.example.FeedBackProject.Repository.UserRepository;
 import com.example.FeedBackProject.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,16 +14,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:3000/")
+
 public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @GetMapping("/allEmp")
-    public List<User> getAllUser()
-    {
-        return userService.getAllUser();
-    }
+    @Autowired
+    private UserRepository user;
 
     @PostMapping("/login")
     public ResponseEntity<Object> login(@RequestBody String token) {
@@ -34,10 +32,18 @@ public class UserController {
     public User getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
+    @GetMapping("/getDetails")
+    public List<User> getAllUser(){
+        return userService.getAllUser();
+    }
 
-    @PutMapping("/updateRole/{email}")
-    public ResponseEntity<User> updateRole(@RequestBody String newRole, @PathVariable String email) {
-        User updateUser = this.userService.updateUserRole(newRole,email);
-        return new ResponseEntity<>(updateUser,HttpStatus.CREATED);
+    @GetMapping("/getDetails/user/{id}")
+    public User getUserById(@PathVariable String id){
+        return userService.findById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public User updateUser(@PathVariable String id,@RequestBody User usr){
+        return userService.updateUser(id,usr);
     }
 }

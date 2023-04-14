@@ -21,10 +21,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public List<User> getAllUser() {
-            return userRepository.findAll();
-    }
-
     public Map<String, Object> login (String token){
 
         String[] chunks = token.split("\\.");
@@ -45,7 +41,6 @@ public class UserService {
         {
             User newUser = new User(map.get("sub"), map.get("name"), map.get("email"), ROLE);
             userRepository.save(newUser);
-            response.put("message ", newUser.getRole() + " Logged In");
             response.put("user", newUser);
         }
         else {
@@ -59,13 +54,20 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
     }
-
-    public User updateUserRole(String role, String email) {
-        User user = userRepository.findByEmailId(email);
-        user.setRole(role);
-        userRepository.save(user);
-        return user;
+    public List<User> getAllUser(){
+        return userRepository.findAll();
     }
 
+    public User findById(String id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public User updateUser(String id,User usr){
+        User obj=userRepository.findById(id).orElse(null);
+        if(usr.getName()!=null)obj.setName(usr.getName());
+        if(usr.getEmailId()!=null) obj.setEmailId(usr.getEmailId());
+        if(usr.getRole()!=null) obj.setRole(usr.getRole());
+        return userRepository.save(obj);
+    }
 
 }
