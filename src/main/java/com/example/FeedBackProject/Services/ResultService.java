@@ -26,16 +26,4 @@ public class ResultService {
                 return ratings;
         }
 
-    public Map<Integer, Integer> storeResult(Map<Integer, Integer> map) {
-        for (Integer m : map.keySet()) {
-            Integer qId = m;
-            Integer res = map.get(m);
-            Questions ques = this.questionsRepository.findById(Long.valueOf(m)).orElseThrow();
-            Result result = new Result();
-            result.setQuesId(ques);
-            result.setResult(res);
-            this.resultRepository.save(result);
-        }
-        return map;
-    }
 }

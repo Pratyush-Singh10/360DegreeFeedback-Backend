@@ -21,10 +21,10 @@ public class QuestionsService {
         return questionsRepository.find();
     }
 
-    public Questions updateStatus(long id, int val) {
-        Questions newQue = questionsRepository.findById(id).orElse(null);
-        newQue.setActive(val);
-        questionsRepository.save(newQue);
-        return newQue;
-    }
+//    public Questions updateStatus(long id, int val) {
+//        Questions newQue = questionsRepository.findById(id).orElse(null);
+//        newQue.setActive(val);
+//        questionsRepository.save(newQue);
+//        return newQue;
+//    }
 }
