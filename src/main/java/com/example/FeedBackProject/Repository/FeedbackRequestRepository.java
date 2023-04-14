@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest, Long> {
 
-    @Query(value = "select fr.feedback_requester,e.name,e.emp_id from feedback_request fr, user e "+
+    @Query(value = "select fr.feedback_id,fr.feedback_requester,e.name,e.emp_id from feedback_request fr, user e "+
             "where fr.status=0 and fr.feedback_provider=:email and fr.feedback_requester=e.email_id", nativeQuery = true)
     List<Object[]> findReceiverFeedbackDetails(@Param("email") String email);
 
