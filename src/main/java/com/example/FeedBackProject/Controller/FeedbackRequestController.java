@@ -27,5 +27,10 @@ public class FeedbackRequestController {
         return feedbackRequestService.findReceiverFeedbackDetails(email);
     }
 
+    @GetMapping("/getComments")
+    public String getComments(@RequestBody String email) {
+        return feedbackRequestService.getReceiverComments(email);
+    }
+
 }
 

@@ -20,4 +20,9 @@ public class FeedbackRequestService {
         List<Object[]> employeeDetails = feedbackRequestRepository.findReceiverFeedbackDetails(email);
         return employeeDetails;
     }
+
+    public String getReceiverComments(String email) {
+        String comment = feedbackRequestRepository.findReceiverComments(email);
+        return comment;
+    }
 }
