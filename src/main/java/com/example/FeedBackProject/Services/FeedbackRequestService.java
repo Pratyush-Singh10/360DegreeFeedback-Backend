@@ -21,10 +21,7 @@ public class FeedbackRequestService {
         return employeeDetails;
     }
 
-    public String getReceiverComments(String email) {
-        String comment = feedbackRequestRepository.findReceiverComments(email);
-        return comment;
-    }
+
 
     public List<Object[]> findPendingResponses(String email) {
         List<Object[]> pendingResponses = feedbackRequestRepository.findPendingResponses(email);

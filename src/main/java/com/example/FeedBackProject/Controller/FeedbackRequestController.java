@@ -29,15 +29,9 @@ public class FeedbackRequestController {
         return feedbackRequestService.findReceiverFeedbackDetails(email);
     }
 
-    @GetMapping("/getComments")
-    public String getComments(@RequestBody String email) {
-        return feedbackRequestService.getReceiverComments(email);
-    }
 
-    @GetMapping("/completedResponses/{email}")
-    public List<Object[]> findCompletedResponses(@PathVariable String email) {
-        return feedbackRequestService.findCompletedResponses(email);
-    }
+
+
 
     @GetMapping("/pendingResponses/{email}")
     public List<Object[]> findPendingResponses(@PathVariable String email) {

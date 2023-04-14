@@ -18,16 +18,16 @@ import javax.persistence.ManyToOne;
 @Data
 public class Result {
     @Id
-    private Long SNo;
+    private Long feedbackAttributeId;
 
     @ManyToOne
-    @JoinColumn(name="FeedbackId",referencedColumnName="FeedbackId")
-    private FeedbackRequest FeedbackId;
+    @JoinColumn(name="feedbackId",referencedColumnName="feedbackId")
+    private FeedbackRequest feedbackId;
 
     @ManyToOne
-    @JoinColumn(name="QuesId",referencedColumnName="QuesId")
-    private Questions QuesId;
+    @JoinColumn(name="attributeId",referencedColumnName="attributeId")
+    private Questions attributeId;
 
-    private int result;
+    private int rating;
 }
 
