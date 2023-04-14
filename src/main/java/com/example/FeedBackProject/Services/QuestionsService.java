@@ -20,4 +20,11 @@ public class QuestionsService {
     public List<Questions> getValidQuestions(){
         return questionsRepository.find();
     }
+
+    public Questions updateStatus(long id, int val) {
+        Questions newQue = questionsRepository.findById(id).orElse(null);
+        newQue.setActive(val);
+        questionsRepository.save(newQue);
+        return newQue;
+    }
 }

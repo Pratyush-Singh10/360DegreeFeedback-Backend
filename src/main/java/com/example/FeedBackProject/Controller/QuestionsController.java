@@ -13,10 +13,6 @@ public class QuestionsController {
     @Autowired
     private QuestionsService questionsService;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> d455e63d907fae97afbcec14c764af558327f266
     @PostMapping("/questions")
     public Questions postQuestions(@RequestBody Questions ques){
         return questionsService.postQuestions(ques);
@@ -24,5 +20,10 @@ public class QuestionsController {
     @GetMapping("/questions/checkValid")
     public List<Questions> getValidQuestions(){
         return questionsService.getValidQuestions();
+    }
+
+    @PutMapping("/status/{id}")
+    public Questions updateStatus(@PathVariable long id, @RequestBody int val) {
+        return questionsService.updateStatus(id,val);
     }
 }
