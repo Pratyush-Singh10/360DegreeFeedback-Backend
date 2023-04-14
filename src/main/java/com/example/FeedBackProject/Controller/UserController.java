@@ -39,12 +39,11 @@ public class UserController {
 
     @GetMapping("/getDetails/user/{id}")
     public User getUserById(@PathVariable String id){
-        return user.findById(id).orElse(null);
+        return userService.findById(id);
     }
 
     @PutMapping("/update/{id}")
     public User updateUser(@PathVariable String id,@RequestBody User usr){
         return userService.updateUser(id,usr);
-
     }
 }

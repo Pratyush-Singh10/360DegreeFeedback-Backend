@@ -41,7 +41,6 @@ public class UserService {
         {
             User newUser = new User(map.get("sub"), map.get("name"), map.get("email"), ROLE);
             userRepository.save(newUser);
-            response.put("message ", newUser.getRole() + " Logged In");
             response.put("user", newUser);
         }
         else {
@@ -59,10 +58,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-//    public User getUserById(String empId){
-//        User Null = null;
-//        return userRepository.findById(empId).orElse(Null);
-//    }
+    public User findById(String id) {
+        return userRepository.findById(id).orElse(null);
+    }
 
     public User updateUser(String id,User usr){
         User obj=userRepository.findById(id).orElse(null);
