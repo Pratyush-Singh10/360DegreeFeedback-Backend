@@ -12,6 +12,6 @@ public interface QuestionsRepository extends JpaRepository<Questions,Long> {
 
 
 
-    @Query(value="select * from questions where active=1 ", nativeQuery = true)
+    @Query(value="select * from questions where status=1 ", nativeQuery = true)
     public List<Questions> find();
 }
