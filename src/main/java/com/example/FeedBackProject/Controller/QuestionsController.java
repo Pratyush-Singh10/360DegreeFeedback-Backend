@@ -21,4 +21,9 @@ public class QuestionsController {
     public List<Questions> getValidQuestions(){
         return questionsService.getValidQuestions();
     }
+
+    @PutMapping("/status/{id}")
+    public Questions updateStatus(@PathVariable long id, @RequestBody int val) {
+        return questionsService.updateStatus(id,val);
+    }
 }

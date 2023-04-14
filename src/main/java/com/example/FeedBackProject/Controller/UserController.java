@@ -42,8 +42,8 @@ public class UserController {
         return userService.findById(id);
     }
 
-    @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable String id,@RequestBody User usr){
-        return userService.updateUser(id,usr);
+    @PutMapping("/update/{emailId}")
+    public User updateUser(@PathVariable String emailId,@RequestBody User usr){
+        return userService.updateUser(emailId,usr);
     }
 }
