@@ -20,7 +20,13 @@ public class Questions {
     private Long attributeId;
 
     private String attribute;
+
+
     private int status;
+
+    public Questions(Long attributeId) {
+        this.attributeId = attributeId;
+    }
 
 
 }

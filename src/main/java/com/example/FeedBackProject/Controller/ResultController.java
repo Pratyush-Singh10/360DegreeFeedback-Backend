@@ -27,6 +27,7 @@ public class ResultController {
     public List<Object[]> getRatings(@PathVariable Long id) {
         return resultService.findRating(id);
     }
+
     @PostMapping("/storeRes/{id}")
     public Map<String, Object> storeResult(@PathVariable Long id, @RequestBody Map<String , Object> map) {
         return resultService.storeResult(id, map);

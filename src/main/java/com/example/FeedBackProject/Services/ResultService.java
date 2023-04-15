@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,25 +33,26 @@ public class ResultService {
         return ratings;
     }
 
-    public Map<String, Object> storeResult(Long id, Map<String, Object> map) {
-        Map<String, Object> response = new HashMap<>();
-        FeedbackRequest feedback=this.feedbackRequestRepository.findById(id).orElseThrow();
-        for (String m : map.keySet()) {
-            if (m.equals("comment")) {
-                continue;
+        public Map<String, Object> storeResult (Long id, Map < String, Object > map) {
+            Map<String, Object> response = new HashMap<>();
+            FeedbackRequest feedback = this.feedbackRequestRepository.findById(id).orElseThrow();
+            for (String m : map.keySet()) {
+                if (m.equals("comment")) {
+                    continue;
+                }
+                Result result = new Result();
+                result.setRating((Integer) map.get(m));
+                result.setFeedbackId(feedback);
+                Long Qid = Long.parseLong(m);
+                Questions questions = this.questionsRepository.findById(Qid).orElseThrow();
+                result.setAttributeId(questions);
+                feedback.setFeedbackComment((String) map.get("comment"));
+                feedback.setStatus(1);
+                this.feedbackRequestRepository.save(feedback);
+                this.resultRepository.save(result);
+                response.put("message", "Feedback Saved");
             }
-            Result result = new Result();
-            result.setRating((Integer) map.get(m));
-            result.setFeedbackId(feedback);
-            Long Qid=Long.parseLong(m);
-            Questions questions = this.questionsRepository.findById(Qid).orElseThrow();
-            result.setAttributeId(questions);
-            feedback.setFeedbackComment((String) map.get("comment"));
-            feedback.setStatus(1);
-            this.feedbackRequestRepository.save(feedback);
-            this.resultRepository.save(result);
-            response.put("message", "Feedback Saved");
+            return response;
         }
-        return response;
+
     }
-}

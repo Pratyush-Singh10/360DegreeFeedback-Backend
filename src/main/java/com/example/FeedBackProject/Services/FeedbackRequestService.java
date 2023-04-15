@@ -33,4 +33,9 @@ public class FeedbackRequestService {
         return completedResponses;
     }
 
+    public List<Object[]> findFeedbackProviders(String email) {
+        List<Object[]> feedbackProviders = feedbackRequestRepository.findFeedbackProviders(email);
+        return feedbackProviders;
+    }
+
 }

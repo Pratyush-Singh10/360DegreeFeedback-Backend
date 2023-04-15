@@ -17,6 +17,7 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
 
 
 
+
     @Query(value = "select e.name,e.emp_id,fr.feedback_provider from feedback_request fr, user e "+
             "where fr.feedback_requester=:email and status=0 and fr.feedback_provider=e.email_id;",nativeQuery = true)
     List<Object[]> findPendingResponses(@Param("email") String email);
@@ -25,6 +26,13 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
             "where fr.feedback_requester=:email and status=1 and fr.feedback_provider=e.email_id;",nativeQuery = true)
 
     List<Object[]> findCompletedResponses(@Param("email") String email);
+
+
+    @Query(value = "select e.emp_id,e.name,fr.feedback_provider,fr.status " +
+            "from feedback_request fr, user e where fr.feedback_requester=:email "+
+            "and fr.feedback_provider=e.email_id ",nativeQuery = true)
+
+    List<Object[]> findFeedbackProviders(@Param("email") String email);
 
 
 
