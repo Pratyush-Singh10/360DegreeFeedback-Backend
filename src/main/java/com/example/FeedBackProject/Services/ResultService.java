@@ -41,7 +41,7 @@ public class ResultService {
                     continue;
                 }
                 Result result = new Result();
-                result.setRating((Integer) map.get(m));
+                result.setRating(Integer.parseInt((String) map.get(m)));
                 result.setFeedbackId(feedback);
                 Long Qid = Long.parseLong(m);
                 Questions questions = this.questionsRepository.findById(Qid).orElseThrow();

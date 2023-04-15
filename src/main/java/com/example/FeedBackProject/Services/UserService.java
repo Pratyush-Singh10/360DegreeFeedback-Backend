@@ -94,7 +94,7 @@ public class UserService {
             User newuser=new User();
             newuser.setEmpId(map.get("sub"));
             newuser.setEmailId(map.get("email"));
-            newuser.setName(map.get("given_name"));
+            newuser.setName(map.get("name"));
             newuser.setPassword(password);
             newuser.setRole("USER");
             newuser.setIsActive(1);
