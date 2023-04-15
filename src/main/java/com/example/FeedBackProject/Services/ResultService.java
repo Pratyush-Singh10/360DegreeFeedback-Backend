@@ -33,22 +33,6 @@ public class ResultService {
         return ratings;
     }
 
-
-//    public void saveFeedback(List<Map<String, Object>> feedback) {
-//        List<Result> results = new ArrayList<>();
-//        for (Map<String, Object> feedbackMap : feedback) {
-//            Long feedbackId = Long.parseLong(feedbackMap.get("feedbackId").toString());
-//            Long attributeId = Long.parseLong(feedbackMap.get("attributeId").toString());
-//            int rating = Integer.parseInt(feedbackMap.get("rating").toString());
-//
-//            Result result = Result.builder()
-//                    .feedbackId(feedbackId)
-//                    .attributeId(new Questions(attributeId))
-//                    .rating(rating)
-//                    .build();
-//
-//            results.add(result);
-
         public Map<String, Object> storeResult (Long id, Map < String, Object > map) {
             Map<String, Object> response = new HashMap<>();
             FeedbackRequest feedback = this.feedbackRequestRepository.findById(id).orElseThrow();
@@ -68,31 +52,7 @@ public class ResultService {
                 this.resultRepository.save(result);
                 response.put("message", "Feedback Saved");
             }
-            resultRepository.saveAll(results);
+            return response;
         }
 
     }
-
-//        public Map<String, Object> storeResult (Long id, Map < String, Object > map){
-//            Map<String, Object> response = new HashMap<>();
-//            for (String m : map.keySet()) {
-//                if (m.equals("comment")) {
-//                    continue;
-//                }
-//                Result result = new Result();
-//                result.setRating((Integer) map.get(m));
-//                Questions questions = questionsRepository.findById(Long.parseLong(m)).get();
-//                result.setAttributeId(questions);
-//                FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(id).orElse(null);
-//                feedbackRequest.setFeedbackComment((String) map.get("comment"));
-//                feedbackRequest.setStatus(1);
-//                feedbackRequestRepository.save(feedbackRequest);
-//                result.setFeedbackId(feedbackRequest);
-//                resultRepository.save(result);
-//                response.put("message", "Feedback Saved");
-//            }
-//            return response;
-//        }
-//    }
-//
-//}

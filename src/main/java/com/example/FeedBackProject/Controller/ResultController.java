@@ -28,17 +28,6 @@ public class ResultController {
         return resultService.findRating(id);
     }
 
-//    @PostMapping("/submit")
-//    public ResponseEntity<String> submitFeedback(@RequestBody List<Map<String, Object>> feedback) {
-//        try {
-//            resultService.saveFeedback(feedback);
-//            return ResponseEntity.ok("Feedback submitted successfully.");
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error submitting feedback: " + e.getMessage());
-//        }
-//    }
-    }
-
     @PostMapping("/storeRes/{id}")
     public Map<String, Object> storeResult(@PathVariable Long id, @RequestBody Map<String , Object> map) {
         return resultService.storeResult(id, map);
