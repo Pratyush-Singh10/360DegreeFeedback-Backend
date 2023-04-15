@@ -33,24 +33,46 @@ public class ResultService {
         return ratings;
     }
 
-    public void saveFeedback(List<Map<String, Object>> feedback) {
-        List<Result> results = new ArrayList<>();
-        for (Map<String, Object> feedbackMap : feedback) {
-            Long feedbackId = Long.parseLong(feedbackMap.get("feedbackId").toString());
-            Long attributeId = Long.parseLong(feedbackMap.get("attributeId").toString());
-            int rating = Integer.parseInt(feedbackMap.get("rating").toString());
 
-            Result result = Result.builder()
-                    .feedbackId(feedbackId)
-                    .attributeId(new Questions(attributeId))
-                    .rating(rating)
-                    .build();
+//    public void saveFeedback(List<Map<String, Object>> feedback) {
+//        List<Result> results = new ArrayList<>();
+//        for (Map<String, Object> feedbackMap : feedback) {
+//            Long feedbackId = Long.parseLong(feedbackMap.get("feedbackId").toString());
+//            Long attributeId = Long.parseLong(feedbackMap.get("attributeId").toString());
+//            int rating = Integer.parseInt(feedbackMap.get("rating").toString());
+//
+//            Result result = Result.builder()
+//                    .feedbackId(feedbackId)
+//                    .attributeId(new Questions(attributeId))
+//                    .rating(rating)
+//                    .build();
+//
+//            results.add(result);
 
-            results.add(result);
+        public Map<String, Object> storeResult (Long id, Map < String, Object > map) {
+            Map<String, Object> response = new HashMap<>();
+            FeedbackRequest feedback = this.feedbackRequestRepository.findById(id).orElseThrow();
+            for (String m : map.keySet()) {
+                if (m.equals("comment")) {
+                    continue;
+                }
+                Result result = new Result();
+                result.setRating((Integer) map.get(m));
+                result.setFeedbackId(feedback);
+                Long Qid = Long.parseLong(m);
+                Questions questions = this.questionsRepository.findById(Qid).orElseThrow();
+                result.setAttributeId(questions);
+                feedback.setFeedbackComment((String) map.get("comment"));
+                feedback.setStatus(1);
+                this.feedbackRequestRepository.save(feedback);
+                this.resultRepository.save(result);
+                response.put("message", "Feedback Saved");
+            }
+            resultRepository.saveAll(results);
         }
-        resultRepository.saveAll(results);
+
     }
-}
+
 //        public Map<String, Object> storeResult (Long id, Map < String, Object > map){
 //            Map<String, Object> response = new HashMap<>();
 //            for (String m : map.keySet()) {

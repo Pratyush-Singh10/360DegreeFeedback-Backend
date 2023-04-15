@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -18,6 +15,7 @@ import javax.persistence.ManyToOne;
 @Data
 public class Result {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long feedbackAttributeId;
 
     @ManyToOne
