@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class ResultService {
@@ -30,8 +31,7 @@ public class ResultService {
         return ratings;
     }
 
-<<<<<<< HEAD
-    public Map<String, Object> storeResult(Map<String, Object> map) {
+    public Map<String, Object> storeResult(Long id, Map<String, Object> map) {
         Map<String, Object> response = new HashMap<>();
         for (String m : map.keySet()) {
             if (m.equals("comment")) {
@@ -41,15 +41,14 @@ public class ResultService {
             result.setRating((Integer) map.get(m));
             Questions questions = questionsRepository.findById(Long.parseLong(m)).get();
             result.setAttributeId(questions);
-            FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(); //Here we need to add Feedback Id
+            FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(id).orElse(null);
             feedbackRequest.setFeedbackComment((String) map.get("comment"));
+            feedbackRequest.setStatus(1);
             feedbackRequestRepository.save(feedbackRequest);
             result.setFeedbackId(feedbackRequest);
             resultRepository.save(result);
             response.put("message", "Feedback Saved");
-            return response;
         }
+        return response;
     }
-=======
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
 }

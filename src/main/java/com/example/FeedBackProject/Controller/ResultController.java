@@ -21,21 +21,14 @@ import java.util.Map;
 public class ResultController {
 
     @Autowired
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
     private ResultService resultService;
+
     @GetMapping("/getRating/{id}")
     public List<Object[]> getRatings(@PathVariable Long id) {
         return resultService.findRating(id);
-<<<<<<< HEAD
     }
-    @PostMapping("/storeRes")
-    public Map<String, Object> storeResult(@RequestBody Map<String , Object> map) {
-        return resultService.storeResult(map);
-=======
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
+    @PostMapping("/storeRes/{id}")
+    public Map<String, Object> storeResult(@PathVariable Long id, @RequestBody Map<String , Object> map) {
+        return resultService.storeResult(id, map);
     }
-
 }

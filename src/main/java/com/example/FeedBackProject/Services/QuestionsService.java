@@ -21,19 +21,20 @@ public class QuestionsService {
         return questionsRepository.find();
     }
 
-<<<<<<< HEAD
     public Questions updateStatus(long id, int val) {
         Questions newQue = questionsRepository.findById(id).orElse(null);
         newQue.setStatus(val);
         questionsRepository.save(newQue);
         return newQue;
     }
-=======
-//    public Questions updateStatus(long id, int val) {
-//        Questions newQue = questionsRepository.findById(id).orElse(null);
-//        newQue.setActive(val);
-//        questionsRepository.save(newQue);
-//        return newQue;
-//    }
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
+
+    public List<Questions> getAllQuestions() {
+        return questionsRepository.findAll();
+    }
+    public Questions updateQueStatus(long id, int val) {
+        Questions newQue = questionsRepository.findById(id).orElse(null);
+        newQue.setStatus(val);
+        questionsRepository.save(newQue);
+        return newQue;
+    }
 }
