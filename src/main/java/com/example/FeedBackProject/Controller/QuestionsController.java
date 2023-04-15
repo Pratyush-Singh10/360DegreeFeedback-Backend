@@ -23,8 +23,13 @@ public class QuestionsController {
         return questionsService.getValidQuestions();
     }
 
-//    @PutMapping("/status/{id}")
-//    public Questions updateStatus(@PathVariable long id, @RequestBody int val) {
-//        return questionsService.updateStatus(id,val);
-//    }
+    @GetMapping("/allQuestions")
+    public List<Questions> getQues() {
+        return questionsService.getAllQuestions();
+    }
+
+    @PutMapping("/status/{id}")
+    public Questions updateStatus(@PathVariable long id, @RequestBody int val) {
+        return questionsService.updateQueStatus(id,val);
+    }
 }

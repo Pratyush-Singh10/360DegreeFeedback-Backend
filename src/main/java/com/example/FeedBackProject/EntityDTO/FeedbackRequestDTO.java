@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 import java.time.LocalDate;
 
 public class FeedbackRequestDTO {
-    private int feedbackId;
+    private Long feedbackId;
 
     private String rEmail;
     private String selfInput;

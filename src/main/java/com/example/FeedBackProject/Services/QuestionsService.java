@@ -28,4 +28,13 @@ public class QuestionsService {
         return newQue;
     }
 
+    public List<Questions> getAllQuestions() {
+        return questionsRepository.findAll();
+    }
+    public Questions updateQueStatus(long id, int val) {
+        Questions newQue = questionsRepository.findById(id).orElse(null);
+        newQue.setStatus(val);
+        questionsRepository.save(newQue);
+        return newQue;
+    }
 }

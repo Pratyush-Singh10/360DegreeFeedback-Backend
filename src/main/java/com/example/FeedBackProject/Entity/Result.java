@@ -29,5 +29,8 @@ public class Result {
     private Questions attributeId;
 
     private int rating;
+
+
+
 }
 
