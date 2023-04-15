@@ -33,20 +33,21 @@ public class ResultService {
 
     public Map<String, Object> storeResult(Long id, Map<String, Object> map) {
         Map<String, Object> response = new HashMap<>();
+        FeedbackRequest feedback=this.feedbackRequestRepository.findById(id).orElseThrow();
         for (String m : map.keySet()) {
             if (m.equals("comment")) {
                 continue;
             }
             Result result = new Result();
             result.setRating((Integer) map.get(m));
-            Questions questions = questionsRepository.findById(Long.parseLong(m)).get();
+            result.setFeedbackId(feedback);
+            Long Qid=Long.parseLong(m);
+            Questions questions = this.questionsRepository.findById(Qid).orElseThrow();
             result.setAttributeId(questions);
-            FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(id).orElse(null);
-            feedbackRequest.setFeedbackComment((String) map.get("comment"));
-            feedbackRequest.setStatus(1);
-            feedbackRequestRepository.save(feedbackRequest);
-            result.setFeedbackId(feedbackRequest);
-            resultRepository.save(result);
+            feedback.setFeedbackComment((String) map.get("comment"));
+            feedback.setStatus(1);
+            this.feedbackRequestRepository.save(feedback);
+            this.resultRepository.save(result);
             response.put("message", "Feedback Saved");
         }
         return response;
