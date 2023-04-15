@@ -10,6 +10,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,26 +32,50 @@ public class ResultService {
         return ratings;
     }
 
-<<<<<<< HEAD
-    public Map<String, Object> storeResult(Map<String, Object> map) {
-        Map<String, Object> response = new HashMap<>();
-        for (String m : map.keySet()) {
-            if (m.equals("comment")) {
-                continue;
+    public Result saveResults(Long feedbackId, Map<Long, Integer> data)
+    {
+            FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(feedbackId)
+                    .orElseThrow(() -> new EntityNotFoundException("FeedbackRequest with id " + feedbackId + " not found"));
+
+            List<Result> results = new ArrayList<>();
+
+            for (Map.Entry<Long, Integer> entry : data.entrySet()) {
+
+
+                Questions question = questionsRepository.findById(entry.getKey())
+                        .orElseThrow(() -> new EntityNotFoundException("Question with id not found"));
+
+                Result result = Result.builder()
+                        .feedbackId(feedbackRequest)
+                        .attributeId(question)
+                        .rating(entry.getValue())
+                        .build();
+
+                results.add(result);
             }
-            Result result = new Result();
-            result.setRating((Integer) map.get(m));
-            Questions questions = questionsRepository.findById(Long.parseLong(m)).get();
-            result.setAttributeId(questions);
-            FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(); //Here we need to add Feedback Id
-            feedbackRequest.setFeedbackComment((String) map.get("comment"));
-            feedbackRequestRepository.save(feedbackRequest);
-            result.setFeedbackId(feedbackRequest);
-            resultRepository.save(result);
-            response.put("message", "Feedback Saved");
-            return response;
+
+            return resultRepository.saveAll(results).get(0);
         }
     }
-=======
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
-}
+
+
+//    public Map<String, Object> storeResult(Map<String, Object> map) {
+//        Map<String, Object> response = new HashMap<>();
+//        for (String m : map.keySet()) {
+//            if (m.equals("comment")) {
+//                continue;
+//            }
+//            Result result = new Result();
+//            result.setRating((Integer) map.get(m));
+//            Questions questions = questionsRepository.findById(Long.parseLong(m)).get();
+//            result.setAttributeId(questions);
+//            FeedbackRequest feedbackRequest = feedbackRequestRepository.findById(); //Here we need to add Feedback Id
+//            feedbackRequest.setFeedbackComment((String) map.get("comment"));
+//            feedbackRequestRepository.save(feedbackRequest);
+//            result.setFeedbackId(feedbackRequest);
+//            resultRepository.save(result);
+//            response.put("message", "Feedback Saved");
+//            return response;
+//        }
+//    }
+

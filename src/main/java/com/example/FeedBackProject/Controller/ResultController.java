@@ -21,21 +21,22 @@ import java.util.Map;
 public class ResultController {
 
     @Autowired
-<<<<<<< HEAD
-=======
-
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
     private ResultService resultService;
     @GetMapping("/getRating/{id}")
     public List<Object[]> getRatings(@PathVariable Long id) {
         return resultService.findRating(id);
-<<<<<<< HEAD
     }
-    @PostMapping("/storeRes")
-    public Map<String, Object> storeResult(@RequestBody Map<String , Object> map) {
-        return resultService.storeResult(map);
-=======
->>>>>>> 4f561c3b8109597ef728dc0ff1bb8899e82a7560
+//    @PostMapping("/storeRes")
+//    public Map<String, Object> storeResult(@RequestBody Map<String , Object> map) {
+//        return resultService.storeResult(map);
+//    }
+
+        @PostMapping("/saveResults/{feedbackId}")
+        public ResponseEntity<Result> saveResults(
+                @PathVariable("feedbackId") Long feedbackId,
+                @RequestBody Map<Long, Integer> data) {
+            Result result = resultService.saveResults(feedbackId, data);
+            return ResponseEntity.ok(result);
+        }
     }
 
-}
