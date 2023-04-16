@@ -38,4 +38,9 @@ public class FeedbackRequestService {
         return feedbackProviders;
     }
 
+    public String findComment(Long id) {
+        String comment = feedbackRequestRepository.findComment(id);
+        return comment;
+    }
+
 }
