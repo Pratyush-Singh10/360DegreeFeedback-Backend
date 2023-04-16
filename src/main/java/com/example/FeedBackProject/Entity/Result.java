@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -18,16 +15,20 @@ import javax.persistence.ManyToOne;
 @Data
 public class Result {
     @Id
-    private Long SNo;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long feedbackAttributeId;
 
     @ManyToOne
-    @JoinColumn(name="FeedbackId",referencedColumnName="FeedbackId")
-    private FeedbackRequest FeedbackId;
+    @JoinColumn(name="feedbackId",referencedColumnName="feedbackId")
+    private FeedbackRequest feedbackId;
 
     @ManyToOne
-    @JoinColumn(name="QuesId",referencedColumnName="QuesId")
-    private Questions QuesId;
+    @JoinColumn(name="attributeId",referencedColumnName="attributeId")
+    private Questions attributeId;
 
-    private int result;
+    private int rating;
+
+
+
 }
 

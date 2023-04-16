@@ -4,17 +4,21 @@ import com.example.FeedBackProject.Entity.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.time.LocalDate;
 
 public class FeedbackRequestDTO {
-    private int FeedbackId;
+    private Long feedbackId;
 
     private String rEmail;
+    private String selfInput;
 
     private String gEmail;
+    private String feedbackComment;
 
     private int status;
 
-    private String comment;
+   private LocalDate startDate;
+    private LocalDate endDate;
 
 
 }

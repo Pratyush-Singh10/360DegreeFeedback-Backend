@@ -17,9 +17,16 @@ import javax.persistence.Id;
 public class Questions {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long QuesId;
-    private String Questions;
-    private int active;
+    private Long attributeId;
+
+    private String attribute;
+
+
+    private int status;
+
+    public Questions(Long attributeId) {
+        this.attributeId = attributeId;
+    }
 
 
 }

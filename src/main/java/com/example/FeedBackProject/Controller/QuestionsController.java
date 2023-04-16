@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins="http://localhost:3000/")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/api")
 public class QuestionsController {
@@ -17,8 +17,19 @@ public class QuestionsController {
     public Questions postQuestions(@RequestBody Questions ques){
         return questionsService.postQuestions(ques);
     }
+
     @GetMapping("/questions/checkValid")
     public List<Questions> getValidQuestions(){
         return questionsService.getValidQuestions();
+    }
+
+    @GetMapping("/allQuestions")
+    public List<Questions> getQues() {
+        return questionsService.getAllQuestions();
+    }
+
+    @PutMapping("/status/{id}")
+    public Questions updateStatus(@PathVariable long id, @RequestBody int val) {
+        return questionsService.updateQueStatus(id,val);
     }
 }
