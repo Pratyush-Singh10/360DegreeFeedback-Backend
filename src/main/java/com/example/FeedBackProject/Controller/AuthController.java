@@ -29,21 +29,22 @@ public class AuthController {
     @Autowired
     JwtTokenUtils jwtTokenUtil;
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
-        try{
-            String email = this.userService.decodeGoogleToken(authRequest.getToken());
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, "PASSWORD"));
+//    @PostMapping("/login")
+//    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
+//        try{
+//            String email = this.userService.decodeGoogleToken(authRequest.getToken());
+//            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, "PASSWORD"));
+//
+//            User user = (User) authentication.getPrincipal();
+//            String accessToken = jwtTokenUtil.generateAccessToken(user);
+//            AuthResponse authResponse = new AuthResponse(user.getEmailId(),user.getName(), accessToken);
+//            return new ResponseEntity<>(authResponse, HttpStatus.OK);
+//        }
+//        catch (BadCredentialsException ex){
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//    }
 
-            User user = (User) authentication.getPrincipal();
-            String accessToken = jwtTokenUtil.generateAccessToken(user);
-            AuthResponse authResponse = new AuthResponse(user.getEmailId(),user.getName(), accessToken);
-            return new ResponseEntity<>(authResponse, HttpStatus.OK);
-        }
-        catch (BadCredentialsException ex){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
 //    @PostMapping("/decode")
 //    public ResponseEntity<Object> decodeToken(@RequestBody String token) {
 //        System.out.println(token);
