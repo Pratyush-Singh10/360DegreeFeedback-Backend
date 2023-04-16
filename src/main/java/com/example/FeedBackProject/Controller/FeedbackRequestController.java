@@ -45,5 +45,10 @@ public class FeedbackRequestController {
         return feedbackRequestService.findFeedbackProviders(email);
     }
 
+    @GetMapping("/findComment/{id}")
+    public String findComment(@PathVariable Long id) {
+        return feedbackRequestService.findComment(id);
+    }
+
 }
 
