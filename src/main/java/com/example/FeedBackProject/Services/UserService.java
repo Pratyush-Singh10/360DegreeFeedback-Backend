@@ -62,8 +62,8 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(String id,User usr){
-        User obj=userRepository.findById(id).orElse(null);
+    public User updateUser(String email,User usr){
+        User obj=userRepository.findByEmailId(email);
         if(usr.getName()!=null)obj.setName(usr.getName());
         if(usr.getEmailId()!=null) obj.setEmailId(usr.getEmailId());
         if(usr.getRole()!=null) obj.setRole(usr.getRole());
