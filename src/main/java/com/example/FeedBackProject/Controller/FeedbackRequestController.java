@@ -30,9 +30,6 @@ public class FeedbackRequestController {
     }
 
 
-
-
-
     @GetMapping("/pendingResponses/{email}")
     public List<Object[]> findPendingResponses(@PathVariable String email) {
         return feedbackRequestService.findPendingResponses(email);
