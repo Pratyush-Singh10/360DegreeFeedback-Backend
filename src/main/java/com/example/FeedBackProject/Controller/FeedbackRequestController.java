@@ -45,7 +45,5 @@ public class FeedbackRequestController {
         return feedbackRequestService.findFeedbackProviders(email);
     }
 
-
-
 }
 
