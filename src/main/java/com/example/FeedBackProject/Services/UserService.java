@@ -68,11 +68,14 @@ public class UserService {
     }
 
     public User updateUser(String emailId,User usr){
-        User obj=userRepository.findById(emailId).orElse(null);
-        if(usr.getName()!=null)obj.setName(usr.getName());
-        if(usr.getEmailId()!=null) obj.setEmailId(usr.getEmailId());
-        if(usr.getRole()!=null) obj.setRole(usr.getRole());
-        return userRepository.save(obj);
+
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
+        if(optionalUser.isPresent()){
+            User existingUser = optionalUser.get();
+            existingUser.setRole(usr.getRole());
+            return userRepository.save(existingUser);
+        }
+        return null;
     }
 
     public String decodeGoogleToken(String token) {
