@@ -32,11 +32,7 @@ public class UserService {
         Map<String, String> map = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         try {
-<<<<<<< HEAD
             map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
-=======
-                map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
->>>>>>> 7691b4fd303fffdb7d267e8782ee98161b1c030f
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -88,47 +84,11 @@ public class UserService {
         }
         return null;
     }
-
-//    public String decodeGoogleToken(String token) {
-//        String[] chunks = token.split("\\.");
-//        String payload = new String(Base64.decodeBase64(chunks[1]));
-//        Map<String, String> map = new HashMap<>();
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        User user = this.userRepository.findByEmailId(map.get("email"));
-//        if (user == null) {
-//            BCryptPasswordEncoder b = new BCryptPasswordEncoder();
-//            String password = b.encode("PASSWORD");
-//            User newuser = new User();
-//            newuser.setEmpId(map.get("sub"));
-//            newuser.setEmailId(map.get("email"));
-//            newuser.setName(map.get("name"));
-//            newuser.setPassword(password);
-//            newuser.setRole("USER");
-//            newuser.setIsActive(1);
-//            User nuser = this.modelMapper.map(newuser, User.class);
-//            this.userRepository.save(nuser);
-//        }
-//        return map.get("email");
-//    }
-
-<<<<<<< HEAD
     public void updateUserIsActive(String empId) {
         User user = userRepository.findById(empId).orElseThrow(() -> new RuntimeException("User not found with empId: " + empId));
         user.setIsActive(0);
         userRepository.save(user);
     }
 
-=======
-<<<<<<< HEAD
->>>>>>> c9b1fcd5600f38fb1a74cdcb22128a35b7427bd2
 }
-=======
-}
->>>>>>> 7691b4fd303fffdb7d267e8782ee98161b1c030f
+
