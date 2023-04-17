@@ -22,11 +22,11 @@ public class UserController {
     @Autowired
     private UserRepository user;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Object> login(@RequestBody String token) {
-//        Map<String, Object> response = userService.login(token);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody String token) {
+        Map<String, Object> response = userService.login(token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @GetMapping("/getDetails/{email}")
     public User getUserByEmail(@PathVariable String email) {
@@ -42,12 +42,8 @@ public class UserController {
         return userService.findById(id);
     }
 
-//    @PutMapping("/update/{email}")
-//    public User updateUser(@PathVariable String email,@RequestBody User usr){
-//        return userService.updateUser(email,usr);
-//    }
     @PutMapping("/update/{emailId}")
-    public User updateUser(@PathVariable String emailId,@RequestBody User usr) {
-        return userService.updateUser(emailId, usr);
+    public User updateUser(@PathVariable String emailId,@RequestBody User usr){
+        return userService.updateUser(emailId,usr);
     }
 }
