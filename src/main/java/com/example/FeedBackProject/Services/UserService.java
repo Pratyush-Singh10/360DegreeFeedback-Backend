@@ -32,7 +32,11 @@ public class UserService {
         Map<String, String> map = new HashMap<>();
         ObjectMapper mapper = new ObjectMapper();
         try {
+<<<<<<< HEAD
             map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
+=======
+                map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
+>>>>>>> 7691b4fd303fffdb7d267e8782ee98161b1c030f
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,4 +118,8 @@ public class UserService {
 //        return map.get("email");
 //    }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 7691b4fd303fffdb7d267e8782ee98161b1c030f

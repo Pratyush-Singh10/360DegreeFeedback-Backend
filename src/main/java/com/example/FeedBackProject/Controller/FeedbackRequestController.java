@@ -30,9 +30,6 @@ public class FeedbackRequestController {
     }
 
 
-
-
-
     @GetMapping("/pendingResponses/{email}")
     public List<Object[]> findPendingResponses(@PathVariable String email) {
         return feedbackRequestService.findPendingResponses(email);
@@ -46,6 +43,11 @@ public class FeedbackRequestController {
     @GetMapping("/feedbackProviders/{email}")
     public List<Object[]> findFeedbackProviders(@PathVariable String email) {
         return feedbackRequestService.findFeedbackProviders(email);
+    }
+
+    @GetMapping("/findComment/{id}")
+    public String findComment(@PathVariable Long id) {
+        return feedbackRequestService.findComment(id);
     }
 
 }
