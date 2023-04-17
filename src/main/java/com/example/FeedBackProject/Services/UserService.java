@@ -1,5 +1,6 @@
 package com.example.FeedBackProject.Services;
 
+
 import com.example.FeedBackProject.Entity.User;
 import com.example.FeedBackProject.Repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -25,7 +26,7 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Map<String, Object> login (String token){
+    public Map<String, Object> login(String token) {
 
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
@@ -39,12 +40,11 @@ public class UserService {
         }
         String ROLE = "USER";
         int isActive = 1;
-        String password="PASSWORD";
+        String password = "PASSWORD";
         Map<String, Object> response = new HashMap<>();
         Optional<User> user = userRepository.findById(map.get("sub"));
 
-        if (user.equals(Optional.empty()))
-        {
+        if (user.equals(Optional.empty())) {
             User newUser = new User();
             newUser.setEmpId(map.get("sub"));
             newUser.setEmailId(map.get("email"));
@@ -54,8 +54,7 @@ public class UserService {
             newUser.setIsActive(1);
             userRepository.save(newUser);
             response.put("user", newUser);
-        }
-        else {
+        } else {
             response.put("message ", "Login Successful");
             response.put("user", user.get());
         }
@@ -66,7 +65,8 @@ public class UserService {
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
     }
-    public List<User> getAllUser(){
+
+    public List<User> getAllUser() {
         return userRepository.findAll();
     }
 
@@ -74,21 +74,28 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(String emailId,User usr){
+    public User updateUser(String emailId, User usr) {
 
         Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
-        if(optionalUser.isPresent()){
+        if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
             existingUser.setRole(usr.getRole());
             return userRepository.save(existingUser);
         }
         return null;
     }
-    public void updateUserIsActive(String empId) {
-        User user = userRepository.findById(empId).orElseThrow(() -> new RuntimeException("User not found with empId: " + empId));
-        user.setIsActive(0);
-        userRepository.save(user);
+
+    public void updateUserIsActive(String emailId) {
+        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
+        if (optionalUser.isPresent()) {
+            User existingUser = optionalUser.get();
+            existingUser.setIsActive(0);
+            userRepository.save(existingUser);
+        }
     }
 
 }
+
+
+
 
