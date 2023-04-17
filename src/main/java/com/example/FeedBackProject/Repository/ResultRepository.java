@@ -12,7 +12,7 @@ import java.util.List;
 public interface ResultRepository extends JpaRepository<Result, Long> {
 
 
-    @Query(value = "select r.attribute_id,q.attribute,r.rating from result r, feedback_request fr, questions q where r.feedback_id=:id and r.feedback_id=fr.feedback_id and q.attribute_id=r.attribute_id ", nativeQuery = true)
+    @Query(value = "select q.attribute,r.rating from result r, feedback_request fr, questions q where r.feedback_id=:id and r.feedback_id=fr.feedback_id and q.attribute_id=r.attribute_id ", nativeQuery = true)
     List<Object[]> findRating(@Param("id") Long id);
 
 }
