@@ -75,15 +75,25 @@ public class UserService {
     }
 
     public User updateUser(String emailId, User usr) {
-
         Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
         if (optionalUser.isPresent()) {
             User existingUser = optionalUser.get();
-            existingUser.setRole(usr.getRole());
+            String currentRole = existingUser.getRole();
+            String newRole = usr.getRole();
+
+            if (currentRole.equals("ADMIN") && newRole.equals("USER")) {
+                List<User> admins = userRepository.findByRole("ADMIN");
+                if (admins.size() == 1 && admins.get(0).getEmailId().equals(existingUser.getEmailId())) {
+                    throw new RuntimeException("Cannot change role to USER. There must be at least one ADMIN user.");
+                }
+            }
+
+            existingUser.setRole(newRole);
             return userRepository.save(existingUser);
         }
         return null;
     }
+
 
     public void updateUserIsActive(String emailId) {
         Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
