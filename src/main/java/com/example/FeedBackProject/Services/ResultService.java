@@ -1,5 +1,10 @@
 package com.example.FeedBackProject.Services;
 
+
+import com.example.FeedBackProject.Repository.ResultRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.FeedBackProject.Entity.FeedbackRequest;
 import com.example.FeedBackProject.Entity.Questions;
 import com.example.FeedBackProject.Entity.Result;
@@ -21,6 +26,7 @@ import java.util.Optional;
 public class ResultService {
     @Autowired
     private ResultRepository resultRepository;
+
 
     @Autowired
     private FeedbackRequestRepository feedbackRequestRepository;
@@ -56,3 +62,4 @@ public class ResultService {
         }
 
     }
+
