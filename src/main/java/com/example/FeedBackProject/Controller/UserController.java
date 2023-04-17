@@ -46,4 +46,9 @@ public class UserController {
     public User updateUser(@PathVariable String emailId,@RequestBody User usr){
         return userService.updateUser(emailId,usr);
     }
+    @PutMapping("/disableEmployee/{empId}")
+    public ResponseEntity<String> updateUserIsActive(@PathVariable String empId) {
+        userService.updateUserIsActive(empId);
+        return new ResponseEntity<>("Employee is removed from an organization", HttpStatus.OK);
+    }
 }

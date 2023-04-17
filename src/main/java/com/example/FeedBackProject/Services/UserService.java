@@ -114,4 +114,10 @@ public class UserService {
 //        return map.get("email");
 //    }
 
+    public void updateUserIsActive(String empId) {
+        User user = userRepository.findById(empId).orElseThrow(() -> new RuntimeException("User not found with empId: " + empId));
+        user.setIsActive(0);
+        userRepository.save(user);
+    }
+
 }
