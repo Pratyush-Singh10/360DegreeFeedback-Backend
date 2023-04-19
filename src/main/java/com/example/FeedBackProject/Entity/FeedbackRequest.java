@@ -35,5 +35,7 @@ public class FeedbackRequest {
 
     private String endDate;
 
+    private String projectName;
+
 
 }

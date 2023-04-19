@@ -46,10 +46,16 @@ public class UserController {
     public User updateUser(@PathVariable String emailId,@RequestBody User usr){
         return userService.updateUser(emailId,usr);
     }
-    @PutMapping("/disableEmployee/{empId}")
-    public ResponseEntity<String> updateUserIsActive(@PathVariable String empId) {
-        userService.updateUserIsActive(empId);
+    @PutMapping("/disableEmployee/{emailId}")
+    public ResponseEntity<String> updateUserIsActive(@PathVariable String emailId) {
+        userService.updateUserIsActive(emailId);
         return new ResponseEntity<>("Employee is removed from an organization", HttpStatus.OK);
     }
+
+    @GetMapping("/employeesUnderManager/{email}")
+    public List<Object[]> findEmployeesUnderManager(@PathVariable String email) {
+        return userService.findEmployeesUnderManager(email);
+    }
+
 }
 
