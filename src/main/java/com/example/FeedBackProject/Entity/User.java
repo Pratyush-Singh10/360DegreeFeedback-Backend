@@ -32,6 +32,9 @@ public class User implements UserDetails {
 
     private int isActive=1;
 
+    @Column(nullable = true)
+    private String managerEmailId;
+
 
 
     @Override
