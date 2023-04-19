@@ -104,6 +104,11 @@ public class UserService {
         }
     }
 
+    public List<Object[]> findEmployeesUnderManager(String email) {
+        List<Object[]> employees=userRepository.findEmployeesUnderManager(email);
+        return employees;
+    }
+
 }
 
 

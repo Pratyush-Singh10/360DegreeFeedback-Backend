@@ -51,5 +51,11 @@ public class UserController {
         userService.updateUserIsActive(emailId);
         return new ResponseEntity<>("Employee is removed from an organization", HttpStatus.OK);
     }
+
+    @GetMapping("/employeesUnderManager/{email}")
+    public List<Object[]> findEmployeesUnderManager(@PathVariable String email) {
+        return userService.findEmployeesUnderManager(email);
+    }
+
 }
 
