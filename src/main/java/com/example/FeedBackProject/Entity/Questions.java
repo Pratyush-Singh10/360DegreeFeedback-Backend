@@ -21,7 +21,6 @@ public class Questions {
 
     private String attribute;
 
-
     private int status;
 
     public Questions(Long attributeId) {

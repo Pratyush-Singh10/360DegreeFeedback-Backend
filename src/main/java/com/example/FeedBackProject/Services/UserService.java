@@ -7,11 +7,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.Null;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,8 +23,47 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Map<String, Object> login (String token){
+//    public Map<String, Object> login (String token){
+//
+//        String[] chunks = token.split("\\.");
+//        String payload = new String(Base64.decodeBase64(chunks[1]));
+//        Map<String, String> map = new HashMap<>();
+//        ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String ROLE = "USER";
+//        int isActive = 1;
+//        String password="PASSWORD";
+//        Map<String, Object> response = new HashMap<>();
+//        Optional<User> user = userRepository.findById(map.get("sub"));
+//
+//        if (user.equals(Optional.empty()))
+//        {
+//            User newUser = new User();
+//            newUser.setEmpId(map.get("sub"));
+//            newUser.setEmailId(map.get("email"));
+//            newUser.setName(map.get("name"));
+//            newUser.setPassword(password);
+//            newUser.setRole("USER");
+//            newUser.setIsActive(1);
+//            userRepository.save(newUser);
+//            response.put("user", newUser);
+//        }
+//        else {
+//            response.put("message ", "Login Successful");
+//            response.put("user", user.get());
+//        }
+//        User newUser = (User) response.get("user");
+//        return response;
+//    }
 
+    //SPRING SECURITY
+
+    public String decodeGoogleToken(String token) {
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
         Map<String, String> map = new HashMap<>();
@@ -40,32 +77,28 @@ public class UserService {
         String ROLE = "USER";
         int isActive = 1;
         String password="PASSWORD";
-        Map<String, Object> response = new HashMap<>();
-        Optional<User> user = userRepository.findById(map.get("sub"));
-
-        if (user.equals(Optional.empty()))
-        {
+        User user = this.userRepository.findByEmailId(map.get("email"));
+        if (user.equals(Optional.empty())) {
+            BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+            String pass = b.encode(password);
             User newUser = new User();
-            newUser.setEmpId(map.get("sub"));
             newUser.setEmailId(map.get("email"));
             newUser.setName(map.get("name"));
-            newUser.setPassword(password);
+            newUser.setPassword(pass);
             newUser.setRole("USER");
             newUser.setIsActive(1);
-            userRepository.save(newUser);
-            response.put("user", newUser);
+            User nUser = this.modelMapper.map(newUser, User.class);
+            this.userRepository.save(nUser);
         }
-        else {
-            response.put("message ", "Login Successful");
-            response.put("user", user.get());
-        }
-        User newUser = (User) response.get("user");
-        return response;
+        System.out.println("This is not Working");
+        return map.get("email");
     }
+
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
     }
+
     public List<User> getAllUser(){
         return userRepository.findAll();
     }
@@ -89,6 +122,5 @@ public class UserService {
         user.setIsActive(0);
         userRepository.save(user);
     }
-
 }
 
