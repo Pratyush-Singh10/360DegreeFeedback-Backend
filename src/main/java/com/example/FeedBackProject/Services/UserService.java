@@ -81,7 +81,7 @@ public class UserService {
             String currentRole = existingUser.getRole();
             String newRole = usr.getRole();
 
-            if (currentRole.equals("ADMIN") && newRole.equals("USER")) {
+            if (currentRole.equals("ADMIN") && (newRole.equals("USER") || newRole.equals("MANAGER") || newRole.equals("BU HEAD"))) {
                 List<User> admins = userRepository.findByRole("ADMIN");
                 if (admins.size() == 1 && admins.get(0).getEmailId().equals(existingUser.getEmailId())) {
                     throw new RuntimeException("Cannot change role to USER. There must be at least one ADMIN user.");
