@@ -42,5 +42,9 @@ public class FeedbackRequestService {
         String comment = feedbackRequestRepository.findComment(id);
         return comment;
     }
+    public List<FeedbackRequest> getAllFeedbackRequestsByEmail(String rEmail) {
+        System.out.println(rEmail);
+        return feedbackRequestRepository.findByrEmail(rEmail);
+    }
 
 }
