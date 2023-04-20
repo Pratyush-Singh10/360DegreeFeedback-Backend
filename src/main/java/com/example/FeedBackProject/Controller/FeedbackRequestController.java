@@ -58,4 +58,8 @@ public class FeedbackRequestController {
         return feedbackRequestService.getFeedbackRequestsByEmailAndStatus(rEmail, status);
     }
 
+    @GetMapping("/getResult/{email}")
+    public List<Object[]> getResult(@PathVariable String email) {
+        return feedbackRequestService.getResult(email);
+    }
 }

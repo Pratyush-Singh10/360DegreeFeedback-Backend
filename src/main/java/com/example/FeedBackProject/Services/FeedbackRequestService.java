@@ -46,4 +46,9 @@ public class FeedbackRequestService {
         return feedbackRequestRepository.findByrEmailAndStatus(rEmail, status);
     }
 
+    public List<Object[]> getResult(String rEmail) {
+        return feedbackRequestRepository.findResult(rEmail);
+    }
+
+
 }

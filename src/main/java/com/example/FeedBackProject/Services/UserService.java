@@ -108,7 +108,6 @@ public class UserService {
         List<Object[]> employees=userRepository.findEmployeesUnderManager(email);
         return employees;
     }
-
 }
 
 
