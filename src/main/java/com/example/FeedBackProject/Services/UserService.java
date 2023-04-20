@@ -26,8 +26,8 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Map<String, Object> login(String token) {
 
+    public String decodeGoogleToken(String token) {
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
         Map<String, String> map = new HashMap<>();
@@ -38,13 +38,11 @@ public class UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String ROLE = "USER";
-        int isActive = 1;
-        String password = "PASSWORD";
-        Map<String, Object> response = new HashMap<>();
-        Optional<User> user = userRepository.findById(map.get("sub"));
 
-        if (user.equals(Optional.empty())) {
+        User user=this.userRepository.findByEmailId(map.get("email"));
+        if(user==null) {
+            BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+            String password = b.encode("password");
             User newUser = new User();
             newUser.setEmpId(map.get("sub"));
             newUser.setEmailId(map.get("email"));
@@ -53,14 +51,45 @@ public class UserService {
             newUser.setRole("USER");
             newUser.setIsActive(1);
             userRepository.save(newUser);
-            response.put("user", newUser);
-        } else {
-            response.put("message ", "Login Successful");
-            response.put("user", user.get());
         }
-        User newUser = (User) response.get("user");
-        return response;
+        return map.get("email");
     }
+
+//    public Map<String, Object> login(String token) {
+//
+//        String[] chunks = token.split("\\.");
+//        String payload = new String(Base64.decodeBase64(chunks[1]));
+//        Map<String, String> map = new HashMap<>();
+//        ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        String ROLE = "USER";
+//        int isActive = 1;
+//        String password = "PASSWORD";
+//        Map<String, Object> response = new HashMap<>();
+//        Optional<User> user = userRepository.findById(map.get("sub"));
+//
+//        if (user.equals(Optional.empty())) {
+//            User newUser = new User();
+//            newUser.setEmpId(map.get("sub"));
+//            newUser.setEmailId(map.get("email"));
+//            newUser.setName(map.get("name"));
+//            newUser.setPassword(password);
+//            newUser.setRole("USER");
+//            newUser.setIsActive(1);
+//            userRepository.save(newUser);
+//            response.put("user", newUser);
+//        } else {
+//            response.put("message ", "Login Successful");
+//            response.put("user", user.get());
+//        }
+//        User newUser = (User) response.get("user");
+//        return response;
+//    }
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
