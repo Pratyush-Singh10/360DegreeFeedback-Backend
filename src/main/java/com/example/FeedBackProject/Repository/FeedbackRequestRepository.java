@@ -33,12 +33,10 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
     @Query(value = "select e.emp_id,e.name,fr.feedback_provider,fr.status,fr.feedback_id " +
             "from feedback_request fr, user e where fr.feedback_requester=:email "+
             "and fr.feedback_provider=e.email_id ",nativeQuery = true)
-
     List<Object[]> findFeedbackProviders(@Param("email") String email);
 
 
     @Query(value = "select fr.feedback_comment from feedback_request fr where fr.feedback_id=:id and status=1;",nativeQuery = true)
-
     String findComment(@Param("id") long id);
 
 
