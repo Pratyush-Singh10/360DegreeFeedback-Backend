@@ -51,11 +51,15 @@ public class FeedbackRequestController {
         return feedbackRequestService.findComment(id);
     }
 
-    @GetMapping("/findFeedback/{rEmail}")
-    public List<FeedbackRequest> getAllFeedbackRequests(@PathVariable String rEmail){
-        System.out.println(rEmail);
-        return feedbackRequestService.getAllFeedbackRequestsByEmail(rEmail);
+    @GetMapping
+    public List<FeedbackRequest> getFeedbackRequestsByEmailAndStatus(
+            @RequestParam(name = "rEmail") String rEmail,
+            @RequestParam(name = "status") int status) {
+        return feedbackRequestService.getFeedbackRequestsByEmailAndStatus(rEmail, status);
     }
 
+    @GetMapping("/getResult/{email}")
+    public List<Object[]> getResult(@PathVariable String email) {
+        return feedbackRequestService.getResult(email);
+    }
 }
-
