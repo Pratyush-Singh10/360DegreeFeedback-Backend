@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -32,13 +33,14 @@ public class UserController {
     public User getUserByEmail(@PathVariable String email) {
         return userService.getUserByEmail(email);
     }
+
     @GetMapping("/getDetails")
-    public List<User> getAllUser(){
+    public List<User> getAllUser() {
         return userService.getAllUser();
     }
 
     @GetMapping("/getDetails/user/{id}")
-    public User getUserById(@PathVariable String id){
+    public User getUserById(@PathVariable String id) {
         return userService.findById(id);
     }
 
@@ -57,5 +59,24 @@ public class UserController {
         return userService.findEmployeesUnderManager(email);
     }
 
+    @PostMapping("/postDetails")
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User savedUser = userService.createUser(user);
+        return ResponseEntity.ok(savedUser);
+    }
+
+
+    @GetMapping("/isManager/{emailId}")
+    public ResponseEntity<Boolean> isManager(@PathVariable String emailId) {
+        boolean isManager = userService.isManager(emailId);
+        return new ResponseEntity<>(isManager, HttpStatus.OK);
+    }
 }
+//    @GetMapping("/checkByEmail/{emailId}")
+//    public ResponseEntity<Boolean> isEmailIdPresent(@PathVariable String emailId) {
+//        Boolean isPresent = userService.isEmailIdPresent(emailId);
+//        return ResponseEntity.ok(isPresent);
+//    }
+
+
 

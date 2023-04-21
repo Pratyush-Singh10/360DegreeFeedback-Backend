@@ -24,14 +24,18 @@ public class User{
 
     @Id
     private String empId;
-
-    private String name;
     private String emailId;
+    private String name;
 
-    private long managerEmpId;
-    private String password="PASSWORD";
+    private String managerEmpId;
 
+
+    private String password;
+
+    @Column(nullable = true)
     private String buName;
+
+
 
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {

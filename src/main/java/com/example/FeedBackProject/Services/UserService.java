@@ -54,9 +54,9 @@ public class UserService {
 //        }
 //        return map.get("email");
 //    }
-
     public Map<String, Object> login(String token) {
 
+        System.out.println("This is Working");
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
         Map<String, String> map = new HashMap<>();
@@ -119,6 +119,8 @@ public class UserService {
 //        return null;
 //    }
 //
+//}
+
 //
 //    public void updateUserIsActive(String emailId) {
 //        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
@@ -133,6 +135,32 @@ public class UserService {
         List<Object[]> employees=userRepository.findEmployeesUnderManager(email);
         return employees;
     }
+
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+//    public boolean isEmailIdPresent(String emailId) {
+//        User user = userRepository.findByEmailId(emailId);
+//        if (user != null) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+
+    public boolean isManager(String email) {
+        User user = userRepository.findByEmailId(email);
+
+        if (user == null) {
+            throw new IllegalArgumentException("User not found for email: " + email);
+        }
+
+        // Check if the user has any subordinates
+        List<User> subordinates = userRepository.findByManagerEmpId(user.getEmpId());
+        return !subordinates.isEmpty();
+    }
+
 }
 
 
