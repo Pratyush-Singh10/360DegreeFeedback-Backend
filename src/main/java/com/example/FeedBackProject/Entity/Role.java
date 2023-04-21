@@ -1,42 +1,34 @@
 package com.example.FeedBackProject.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.context.annotation.Role;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@Entity
-@Table(name="User")
-public class User{
+@Data
+public class Role{
 
     @Id
-    private String empId;
-    private String emailId;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    @Column(nullable = true)
-    private long managerEmpId;
-    private String password;
+    @OneToOne
+    @JoinColumn(name = "empId",referencedColumnName = "empId")
+    private User empId;
 
-    @Column(nullable = true)
-    private String buName;
+    private String role;
 
-
-
-//    @Override
+//        @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
 //        List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
 //        authorityList.add(new SimpleGrantedAuthority("USER"));
@@ -45,36 +37,34 @@ public class User{
 //        }
 //        return authorityList;
 //    }
-
+//
 //    @Override
 //    public String getPassword() {
-//        return this.password;
+//        return null;
 //    }
 //
 //    @Override
 //    public String getUsername() {
-//        return this.emailId;
+//        return null;
 //    }
 //
 //    @Override
 //    public boolean isAccountNonExpired() {
-//        return true;
+//        return false;
 //    }
 //
 //    @Override
 //    public boolean isAccountNonLocked() {
-//        return true;
+//        return false;
 //    }
 //
 //    @Override
 //    public boolean isCredentialsNonExpired() {
-//        return true;
+//        return false;
 //    }
 //
 //    @Override
 //    public boolean isEnabled() {
-//        return true;
+//        return false;
 //    }
 }
-
-

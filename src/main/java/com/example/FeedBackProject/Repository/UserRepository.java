@@ -8,15 +8,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,String > {
 
-    User findByEmailId(String emailId);
-    List<User> findByRole(String role);
+
+    User findByEmailId(String s);
+
+
+
 
     @Query(value = "select name, email_id from user where manager_email_id=:email", nativeQuery = true)
     List<Object[]> findEmployeesUnderManager(@Param("email") String email);
-    
+
 
 }

@@ -26,8 +26,37 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+
+//    public String decodeGoogleToken(String token) {
+//        String[] chunks = token.split("\\.");
+//        String payload = new String(Base64.decodeBase64(chunks[1]));
+//        Map<String, String> map = new HashMap<>();
+//        ObjectMapper mapper = new ObjectMapper();
+//        try {
+//            map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        User user=this.userRepository.findByEmailId(map.get("email"));
+//        if(user==null) {
+//            BCryptPasswordEncoder b = new BCryptPasswordEncoder();
+//            String password = b.encode("password");
+//            User newUser = new User();
+//            newUser.setEmpId(map.get("sub"));
+//            newUser.setEmailId(map.get("email"));
+//            newUser.setName(map.get("name"));
+//            newUser.setPassword(password);
+//            newUser.setRole("USER");
+//            newUser.setIsActive(1);
+//            userRepository.save(newUser);
+//        }
+//        return map.get("email");
+//    }
     public Map<String, Object> login(String token) {
 
+        System.out.println("This is Working");
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
         Map<String, String> map = new HashMap<>();
@@ -38,11 +67,9 @@ public class UserService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String ROLE = "USER";
-        int isActive = 1;
         String password = "PASSWORD";
         Map<String, Object> response = new HashMap<>();
-        Optional<User> user = userRepository.findById(map.get("sub"));
+        User user = userRepository.findByEmailId(map.get("email"));
 
         if (user.equals(Optional.empty())) {
             User newUser = new User();
@@ -50,13 +77,11 @@ public class UserService {
             newUser.setEmailId(map.get("email"));
             newUser.setName(map.get("name"));
             newUser.setPassword(password);
-            newUser.setRole("USER");
-            newUser.setIsActive(1);
             userRepository.save(newUser);
             response.put("user", newUser);
         } else {
             response.put("message ", "Login Successful");
-            response.put("user", user.get());
+            response.put("user", user);
         }
         User newUser = (User) response.get("user");
         return response;
@@ -74,35 +99,37 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(String emailId, User usr) {
-        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
-        if (optionalUser.isPresent()) {
-            User existingUser = optionalUser.get();
-            String currentRole = existingUser.getRole();
-            String newRole = usr.getRole();
+//    public User updateUser(String emailId, User usr) {
+//        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
+//        if (optionalUser.isPresent()) {
+//            User existingUser = optionalUser.get();
+//            String currentRole = existingUser.getRole();
+//            String newRole = usr.getRole();
+//
+//            if (currentRole.equals("ADMIN") && (newRole.equals("USER") || newRole.equals("MANAGER") || newRole.equals("BU HEAD"))) {
+//                List<User> admins = userRepository.findByRole("ADMIN");
+//                if (admins.size() == 1 && admins.get(0).getEmailId().equals(existingUser.getEmailId())) {
+//                    throw new RuntimeException("Cannot change role to USER. There must be at least one ADMIN user.");
+//                }
+//            }
+//
+//            existingUser.setRole(newRole);
+//            return userRepository.save(existingUser);
+//        }
+//        return null;
+//    }
+//
+//}
 
-            if (currentRole.equals("ADMIN") && (newRole.equals("USER") || newRole.equals("MANAGER") || newRole.equals("BU HEAD"))) {
-                List<User> admins = userRepository.findByRole("ADMIN");
-                if (admins.size() == 1 && admins.get(0).getEmailId().equals(existingUser.getEmailId())) {
-                    throw new RuntimeException("Cannot change role to USER. There must be at least one ADMIN user.");
-                }
-            }
-
-            existingUser.setRole(newRole);
-            return userRepository.save(existingUser);
-        }
-        return null;
-    }
-
-
-    public void updateUserIsActive(String emailId) {
-        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
-        if (optionalUser.isPresent()) {
-            User existingUser = optionalUser.get();
-            existingUser.setIsActive(0);
-            userRepository.save(existingUser);
-        }
-    }
+//
+//    public void updateUserIsActive(String emailId) {
+//        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
+//        if (optionalUser.isPresent()) {
+//            User existingUser = optionalUser.get();
+//            existingUser.setIsActive(0);
+//            userRepository.save(existingUser);
+//        }
+//    }
 
     public List<Object[]> findEmployeesUnderManager(String email) {
         List<Object[]> employees=userRepository.findEmployeesUnderManager(email);
@@ -112,6 +139,15 @@ public class UserService {
     public User createUser(User user) {
         return userRepository.save(user);
     }
+
+//    public boolean isEmailIdPresent(String emailId) {
+//        User user = userRepository.findByEmailId(emailId);
+//        if (user != null) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 }
 
 
