@@ -26,11 +26,8 @@ public class User implements UserDetails {
     private String empId;
     private String name;
     private String emailId;
-    private String role="USER";
 
     private String password="PASSWORD";
-
-    private int isActive=1;
 
 
 
