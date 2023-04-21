@@ -1,18 +1,18 @@
-package com.example.FeedBackProject.utils;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import javax.persistence.GeneratedValue;
-
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-public class AuthRequest {
-
-    private String token;
-
-}
+//package com.example.FeedBackProject.utils;
+//
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+//import lombok.Setter;
+//
+//import javax.persistence.GeneratedValue;
+//
+//@Getter
+//@Setter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//public class AuthRequest {
+//
+//    private String token;
+//
+//}
