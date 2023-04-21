@@ -27,8 +27,9 @@ public class User{
     private String emailId;
     private String name;
 
-    @Column(nullable = true)
-    private long managerEmpId;
+    private String managerEmpId;
+
+
     private String password;
 
     @Column(nullable = true)
