@@ -22,11 +22,11 @@ public class UserController {
     @Autowired
     private UserRepository user;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Object> login(@RequestBody String token) {
-//        Map<String, Object> response = userService.login(token);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody String token) {
+        Map<String, Object> response = userService.login(token);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 
     @GetMapping("/getDetails/{email}")
     public User getUserByEmail(@PathVariable String email) {

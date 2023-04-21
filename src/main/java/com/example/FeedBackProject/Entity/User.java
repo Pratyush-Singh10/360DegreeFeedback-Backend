@@ -23,7 +23,7 @@ import java.util.List;
 public class User{
 
     @Id
-    private long empId;
+    private String empId;
 
     private String name;
     private String emailId;
