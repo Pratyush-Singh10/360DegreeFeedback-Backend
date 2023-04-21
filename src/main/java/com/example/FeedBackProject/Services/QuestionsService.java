@@ -29,6 +29,7 @@ public class QuestionsService {
     }
 
     public List<Questions> getAllQuestions() {
+
         return questionsRepository.findAll();
     }
     public Questions updateQueStatus(long id, int val) {

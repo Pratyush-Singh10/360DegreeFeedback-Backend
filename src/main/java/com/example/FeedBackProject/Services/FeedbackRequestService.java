@@ -38,4 +38,17 @@ public class FeedbackRequestService {
         return feedbackProviders;
     }
 
+    public String findComment(Long id) {
+        String comment = feedbackRequestRepository.findComment(id);
+        return comment;
+    }
+    public List<FeedbackRequest> getFeedbackRequestsByEmailAndStatus(String rEmail, int status) {
+        return feedbackRequestRepository.findByrEmailAndStatus(rEmail, status);
+    }
+
+    public List<Object[]> getResult(String rEmail) {
+        return feedbackRequestRepository.findResult(rEmail);
+    }
+
+
 }

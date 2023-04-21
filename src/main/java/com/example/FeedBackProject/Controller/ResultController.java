@@ -1,8 +1,5 @@
 package com.example.FeedBackProject.Controller;
 
-import com.example.FeedBackProject.Entity.Result;
-import com.example.FeedBackProject.Services.ResultService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import com.example.FeedBackProject.EntityDTO.ResultDTO;
 import com.example.FeedBackProject.Services.ResultService;

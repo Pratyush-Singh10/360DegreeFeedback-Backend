@@ -34,7 +34,7 @@ public class SpringSecurityConfiguration {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                return userRepository.findByEmailId(username);
+                return (UserDetails) userRepository.findByEmailId(username);
             }
         };
     }

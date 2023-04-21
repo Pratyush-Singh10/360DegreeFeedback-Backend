@@ -6,6 +6,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,5 +39,9 @@ public class FeedbackRequest {
 
     private String endDate;
 
+    private String projectName;
+
 
 }
+
+
