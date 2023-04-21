@@ -64,6 +64,13 @@ public class UserController {
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
     }
+
+
+    @GetMapping("/isManager/{emailId}")
+    public ResponseEntity<Boolean> isManager(@PathVariable String emailId) {
+        boolean isManager = userService.isManager(emailId);
+        return new ResponseEntity<>(isManager, HttpStatus.OK);
+    }
 }
 //    @GetMapping("/checkByEmail/{emailId}")
 //    public ResponseEntity<Boolean> isEmailIdPresent(@PathVariable String emailId) {

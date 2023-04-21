@@ -148,6 +148,19 @@ public class UserService {
 //            return false;
 //        }
 //    }
+
+    public boolean isManager(String email) {
+        User user = userRepository.findByEmailId(email);
+
+        if (user == null) {
+            throw new IllegalArgumentException("User not found for email: " + email);
+        }
+
+        // Check if the user has any subordinates
+        List<User> subordinates = userRepository.findByManagerEmpId(user.getEmpId());
+        return !subordinates.isEmpty();
+    }
+
 }
 
 
