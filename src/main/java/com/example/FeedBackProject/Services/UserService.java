@@ -1,5 +1,4 @@
 package com.example.FeedBackProject.Services;
-
 import com.example.FeedBackProject.Entity.User;
 import com.example.FeedBackProject.Repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -70,11 +69,7 @@ public class UserService {
         Map<String, Object> response = new HashMap<>();
         User user = userRepository.findByEmailId(map.get("email"));
 
-
-        if (user==null) {
-
         if (user.equals(Optional.empty())) {
-
             User newUser = new User();
             newUser.setEmpId(map.get("sub"));
             newUser.setEmailId(map.get("email"));
@@ -138,23 +133,6 @@ public class UserService {
         List<Object[]> employees=userRepository.findEmployeesUnderManager(email);
         return employees;
     }
-
-
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
-
-//    public boolean isEmailIdPresent(String emailId) {
-//        User user = userRepository.findByEmailId(emailId);
-//        if (user != null) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
-}
-
-
 
     public User createUser(User user) {
         return userRepository.save(user);

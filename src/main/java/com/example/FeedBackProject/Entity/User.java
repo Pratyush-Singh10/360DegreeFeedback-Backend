@@ -28,18 +28,10 @@ public class User{
 
     private String name;
     private String emailId;
-    private String name;
 
-
-    @Column(nullable = true)
     private String managerEmpId;
-    private String password="PASSWORD";
-=======
-    @Column(nullable = true)
-    private long managerEmpId;
     private String password;
 
-    @Column(nullable = true)
     private String buName;
 
 
