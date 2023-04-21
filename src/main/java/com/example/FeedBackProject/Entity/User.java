@@ -24,8 +24,8 @@ public class User implements UserDetails {
 
     @Id
     private String empId;
-    private String name;
     private String emailId;
+    private String name;
     private String role="USER";
 
     private String password="PASSWORD";
