@@ -1,7 +1,9 @@
 package com.example.FeedBackProject.Services;
 
 
+import com.example.FeedBackProject.Entity.Role;
 import com.example.FeedBackProject.Entity.User;
+import com.example.FeedBackProject.Repository.RoleRepository;
 import com.example.FeedBackProject.Repository.UserRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +27,9 @@ public class UserService {
     private UserRepository userRepository;
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
 
 //    public String decodeGoogleToken(String token) {
@@ -161,7 +166,29 @@ public class UserService {
         return !subordinates.isEmpty();
     }
 
-}
+
+
+        public String getUserRoleByEmail(String email) {
+            // Find the user by email
+            User user = userRepository.findByEmailId(email);
+            if (user == null) {
+                return null;
+            }
+            // Check if the user has a role in the role table
+            Role role = roleRepository.findByEmpId(user);
+            if (role != null) {
+                return role.getRole();
+            }
+            // Check if the user is a manager
+            List<User> subordinates = userRepository.findByManagerEmpId(user.getEmpId());
+            if (subordinates != null && !subordinates.isEmpty()) {
+                return "manager";
+            }
+            // The user is an employee without a role or manager
+            return "employee";
+        }
+    }
+
 
 
 
