@@ -71,7 +71,18 @@ public class UserController {
         boolean isManager = userService.isManager(emailId);
         return new ResponseEntity<>(isManager, HttpStatus.OK);
     }
-}
+
+
+        @GetMapping("/checkRole/{email}")
+        public ResponseEntity<String> getUserRole(@PathVariable String email) {
+            String role = userService.getUserRoleByEmail(email);
+            if (role == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(role);
+        }
+    }
+
 //    @GetMapping("/checkByEmail/{emailId}")
 //    public ResponseEntity<Boolean> isEmailIdPresent(@PathVariable String emailId) {
 //        Boolean isPresent = userService.isEmailIdPresent(emailId);
