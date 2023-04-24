@@ -86,6 +86,13 @@ public class UserController {
             }
             return ResponseEntity.ok(role);
         }
+
+        @GetMapping("/getUserByBU/{email}")
+        public List<User> getUserByBU(@PathVariable String email){
+            List<User> nUser=userService.getUserByBU(email);
+            return nUser;
+        }
+
     }
 
 //    @GetMapping("/checkByEmail/{emailId}")
@@ -93,6 +100,8 @@ public class UserController {
 //        Boolean isPresent = userService.isEmailIdPresent(emailId);
 //        return ResponseEntity.ok(isPresent);
 //    }
+
+
 
 
 

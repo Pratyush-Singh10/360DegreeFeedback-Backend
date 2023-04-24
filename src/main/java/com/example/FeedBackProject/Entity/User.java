@@ -30,10 +30,13 @@ public class User{
     private String emailId;
 
     private String managerEmpId;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a707cf15c1b22204653a7b0487c0522e3b41e073
     private String password;
 
     private String buName;
-
 
 
 //    @Override

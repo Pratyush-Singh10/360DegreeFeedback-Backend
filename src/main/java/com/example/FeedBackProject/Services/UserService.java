@@ -61,7 +61,6 @@ public class UserService {
 //    }
     public Map<String, Object> login(String token) {
 
-        System.out.println("This is Working");
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
         Map<String, String> map = new HashMap<>();
@@ -76,7 +75,7 @@ public class UserService {
         Map<String, Object> response = new HashMap<>();
         User user = userRepository.findByEmailId(map.get("email"));
 
-        if (user.equals(Optional.empty())) {
+        if (user==null) {
             User newUser = new User();
             newUser.setEmpId(map.get("sub"));
             newUser.setEmailId(map.get("email"));
@@ -192,6 +191,11 @@ public class UserService {
             }
             // The user is an employee without a role or manager
             return "employee";
+        }
+
+        public List<User> getUserByBU(String email){
+            List<User> user=userRepository.findUserByBU(email);
+            return user;
         }
     }
 
