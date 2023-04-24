@@ -32,7 +32,7 @@ public class UserService {
     private RoleRepository roleRepository;
 
 
-//    public String decodeGoogleToken(String token) {
+    //    public String decodeGoogleToken(String token) {
 //        String[] chunks = token.split("\\.");
 //        String payload = new String(Base64.decodeBase64(chunks[1]));
 //        Map<String, String> map = new HashMap<>();
@@ -140,6 +140,11 @@ public class UserService {
         return employees;
     }
 
+    public List<Object[]> findEmployeesUnderBUHead(String email) {
+        List<Object[]> employees=userRepository.findEmployeesUnderBUHead(email);
+        return employees;
+    }
+
     public User createUser(User user) {
         return userRepository.save(user);
     }
@@ -152,6 +157,7 @@ public class UserService {
 //            return false;
 //        }
 //    }
+
 
     public boolean isManager(String email) {
         User user = userRepository.findByEmailId(email);
@@ -192,8 +198,5 @@ public class UserService {
             return user;
         }
     }
-
-
-
 
 

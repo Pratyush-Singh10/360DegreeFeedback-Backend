@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 
 public class UserController {
 
@@ -57,6 +57,11 @@ public class UserController {
     @GetMapping("/employeesUnderManager/{email}")
     public List<Object[]> findEmployeesUnderManager(@PathVariable String email) {
         return userService.findEmployeesUnderManager(email);
+    }
+
+    @GetMapping("/employeesUnderBUHead/{email}")
+    public List<Object[]> findEmployeesUnderBUHead(@PathVariable String email) {
+        return userService.findEmployeesUnderBUHead(email);
     }
 
     @PostMapping("/postDetails")

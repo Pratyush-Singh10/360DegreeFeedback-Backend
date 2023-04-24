@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -58,8 +59,9 @@ public class FeedbackRequestController {
         return feedbackRequestService.getFeedbackRequestsByEmailAndStatus(rEmail, status);
     }
 
-    @GetMapping("/getResult/{email}")
-    public List<Object[]> getResult(@PathVariable String email) {
-        return feedbackRequestService.getResult(email);
+    @GetMapping("/getResults/{email}")
+    public List<Map<String, Object>> getFeedback(@PathVariable String email) {
+        return feedbackRequestService.getFeedbackByRequesterEmail(email);
     }
+
 }
