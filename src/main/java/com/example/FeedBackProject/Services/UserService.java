@@ -186,6 +186,11 @@ public class UserService {
             // The user is an employee without a role or manager
             return "employee";
         }
+
+        public List<User> getUserByBU(String email){
+            List<User> user=userRepository.findUserByBU(email);
+            return user;
+        }
     }
 
 

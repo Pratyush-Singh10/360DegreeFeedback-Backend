@@ -3,6 +3,7 @@ package com.example.FeedBackProject.Repository;
 import com.example.FeedBackProject.Entity.FeedbackRequest;
 import com.example.FeedBackProject.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -42,21 +43,46 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
     String findComment(@Param("id") long id);
 
 
-    @Query(value = "SELECT fr.feedback_id, fr.project_name, fr.feedback_provider, fr.start_date, fr.end_date, fr.self_input, fr.feedback_comment, "+
-    "MAX(CASE WHEN q.attribute_id = 1 THEN r.rating ELSE NULL END) AS attribute1, "+
-    "MAX(CASE WHEN q.attribute_id = 2 THEN r.rating ELSE NULL END) AS attribute2, "+
-    "MAX(CASE WHEN q.attribute_id = 3 THEN r.rating ELSE NULL END) AS attribute3, "+
-    "MAX(CASE WHEN q.attribute_id = 4 THEN r.rating ELSE NULL END) AS attribute4, "+
-    "MAX(CASE WHEN q.attribute_id = 5 THEN r.rating ELSE NULL END) AS attribute5, "+
-    "MAX(CASE WHEN q.attribute_id = 6 THEN r.rating ELSE NULL END) AS attribute6, "+
-    "MAX(CASE WHEN q.attribute_id = 7 THEN r.rating ELSE NULL END) AS attribute7, "+
-    "MAX(CASE WHEN q.attribute_id = 8 THEN r.rating ELSE NULL END) AS attribute8, "+
-    "MAX(CASE WHEN q.attribute_id = 9 THEN r.rating ELSE NULL END) AS attribute9, "+
-    "MAX(CASE WHEN q.attribute_id = 10 THEN r.rating ELSE NULL END) AS attribute10 "+
-    "FROM feedback_request fr "+
-    "JOIN result r ON fr.feedback_id = r.feedback_id "+
-    "JOIN questions q ON r.attribute_id = q.attribute_id "+
-    "WHERE fr.feedback_requester = :rEmail ", nativeQuery = true)
+//    @Query(value = "SELECT fr.feedback_id, fr.project_name, fr.feedback_provider, fr.start_date, fr.end_date, fr.self_input, fr.feedback_comment, "+
+//    "MAX(CASE WHEN q.attribute_id = 1 THEN r.rating ELSE NULL END) AS attribute1, "+
+//    "MAX(CASE WHEN q.attribute_id = 2 THEN r.rating ELSE NULL END) AS attribute2, "+
+//    "MAX(CASE WHEN q.attribute_id = 3 THEN r.rating ELSE NULL END) AS attribute3, "+
+//    "MAX(CASE WHEN q.attribute_id = 4 THEN r.rating ELSE NULL END) AS attribute4, "+
+//    "MAX(CASE WHEN q.attribute_id = 5 THEN r.rating ELSE NULL END) AS attribute5, "+
+//    "MAX(CASE WHEN q.attribute_id = 6 THEN r.rating ELSE NULL END) AS attribute6, "+
+//    "MAX(CASE WHEN q.attribute_id = 7 THEN r.rating ELSE NULL END) AS attribute7, "+
+//    "MAX(CASE WHEN q.attribute_id = 8 THEN r.rating ELSE NULL END) AS attribute8, "+
+//    "MAX(CASE WHEN q.attribute_id = 9 THEN r.rating ELSE NULL END) AS attribute9, "+
+//    "MAX(CASE WHEN q.attribute_id = 10 THEN r.rating ELSE NULL END) AS attribute10 "+
+//    "FROM feedback_request fr "+
+//    "JOIN result r ON fr.feedback_id = r.feedback_id "+
+//    "JOIN questions q ON r.attribute_id = q.attribute_id "+
+//    "WHERE fr.feedback_requester = :rEmail ", nativeQuery = true)
+
+
+//    @Query(value = "SET @sql = NULL;\n" +
+//            "SELECT GROUP_CONCAT(DISTINCT\n" +
+//            "CONCAT('MAX(CASE WHEN q.attribute_id = ', attribute_id, ' THEN r.rating ELSE NULL END) " +
+//            "AS attribute', attribute_id)\n" +
+//            ") INTO @sql\n" +
+//            "FROM questions;\n" +
+//            "SET @sql = CONCAT('SELECT fr.feedback_id, fr.project_name, fr.feedback_provider, fr.start_date, " +
+//            "fr.end_date, fr.self_input, fr.feedback_comment, ', @sql, '\n" +
+//            "FROM feedback_request fr\n" +
+//            "JOIN result r ON fr.feedback_id = r.feedback_id\n" +
+//            "JOIN questions q ON r.attribute_id = q.attribute_id\n" +
+//            "WHERE fr.feedback_requester = :rEmail');\n" +
+//            "PREPARE stmt FROM @sql;\n" +
+//            "EXECUTE stmt;\n" +
+//            "DEALLOCATE PREPARE stmt;",nativeQuery = true)
+    @Modifying
+    @Query(value = "SET @sql = NULL; SELECT GROUP_CONCAT(DISTINCT CONCAT('MAX(CASE WHEN q.attribute_id = ', attribute_id, ' " +
+            "THEN r.rating ELSE NULL END) AS attribute', attribute_id)) INTO @sql FROM questions; " +
+            "SET @sql = CONCAT('SELECT fr.feedback_id, fr.project_name, fr.feedback_provider, fr.start_date, " +
+            "fr.end_date, fr.self_input, fr.feedback_comment, ', @sql, ' " +
+            "FROM feedback_request fr JOIN result r ON fr.feedback_id = r.feedback_id " +
+            "JOIN questions q ON r.attribute_id = q.attribute_id WHERE fr.feedback_requester = :rEmail'); " +
+            "PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;", nativeQuery = true)
     List<Object[]> findResult(@Param("rEmail") String rEmail);
 
 
