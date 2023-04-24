@@ -29,12 +29,10 @@ public class User{
 
     private String managerEmpId;
 
-
     private String password;
 
     @Column(nullable = true)
     private String buName;
-
 
 
 //    @Override
