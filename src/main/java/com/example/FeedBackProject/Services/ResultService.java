@@ -61,5 +61,9 @@ public class ResultService {
             return response;
         }
 
+    public List<Object[]> getAvgRating(String email) {
+        List<Object[]> list = resultRepository.findAvgRating(email);
+        return list;
     }
+}
 
