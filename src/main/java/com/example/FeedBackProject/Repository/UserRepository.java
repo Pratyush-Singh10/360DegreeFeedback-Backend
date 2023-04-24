@@ -21,14 +21,13 @@ public interface UserRepository extends JpaRepository<User,String > {
     User findByEmpId(String empId);
 
 
-
-
     @Query(value = "select name, email_id from user u1 where manager_emp_id=(select emp_id from user u2 where u2.email_id=:email) ", nativeQuery = true)
     List<Object[]> findEmployeesUnderManager(@Param("email") String email);
 
 
-    @Query(value = "SELECT * FROM user WHERE bu_name = (SELECT bu_name FROM user WHERE email_id = :email) AND email_id != :email",nativeQuery = true)
+    @Query(value = "SELECT name, email_id FROM user WHERE bu_name = " +
+            "(SELECT bu_name FROM user WHERE email_id = :email) " +
+            "AND email_id != :email",nativeQuery = true)
     List<User> findUserByBU(@Param("email") String email);
-
 
 }

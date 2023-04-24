@@ -75,7 +75,8 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
 //            "PREPARE stmt FROM @sql;\n" +
 //            "EXECUTE stmt;\n" +
 //            "DEALLOCATE PREPARE stmt;",nativeQuery = true)
-    @Modifying
+
+
     @Query(value = "SET @sql = NULL; SELECT GROUP_CONCAT(DISTINCT CONCAT('MAX(CASE WHEN q.attribute_id = ', attribute_id, ' " +
             "THEN r.rating ELSE NULL END) AS attribute', attribute_id)) INTO @sql FROM questions; " +
             "SET @sql = CONCAT('SELECT fr.feedback_id, fr.project_name, fr.feedback_provider, fr.start_date, " +
