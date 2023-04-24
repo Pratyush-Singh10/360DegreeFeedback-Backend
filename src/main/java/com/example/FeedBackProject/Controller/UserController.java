@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 
 public class UserController {
 
@@ -59,6 +59,11 @@ public class UserController {
         return userService.findEmployeesUnderManager(email);
     }
 
+    @GetMapping("/employeesUnderBUHead/{email}")
+    public List<Object[]> findEmployeesUnderBUHead(@PathVariable String email) {
+        return userService.findEmployeesUnderBUHead(email);
+    }
+
     @PostMapping("/postDetails")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);
@@ -81,6 +86,13 @@ public class UserController {
             }
             return ResponseEntity.ok(role);
         }
+
+        @GetMapping("/getUserByBU/{email}")
+        public List<User> getUserByBU(@PathVariable String email){
+            List<User> nUser=userService.getUserByBU(email);
+            return nUser;
+        }
+
     }
 
 //    @GetMapping("/checkByEmail/{emailId}")
@@ -88,6 +100,8 @@ public class UserController {
 //        Boolean isPresent = userService.isEmailIdPresent(emailId);
 //        return ResponseEntity.ok(isPresent);
 //    }
+
+
 
 
 

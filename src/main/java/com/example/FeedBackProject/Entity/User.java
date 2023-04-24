@@ -24,17 +24,16 @@ public class User{
 
     @Id
     private String empId;
-    private String emailId;
+
+
     private String name;
+    private String emailId;
 
     private String managerEmpId;
 
-
     private String password;
 
-    @Column(nullable = true)
     private String buName;
-
 
 
 //    @Override

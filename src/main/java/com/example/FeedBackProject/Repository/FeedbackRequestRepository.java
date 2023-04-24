@@ -3,6 +3,7 @@ package com.example.FeedBackProject.Repository;
 import com.example.FeedBackProject.Entity.FeedbackRequest;
 import com.example.FeedBackProject.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -42,8 +43,6 @@ public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest
 
     @Query(value = "select fr.feedback_comment from feedback_request fr where fr.feedback_id=:id and status=1;",nativeQuery = true)
     String findComment(@Param("id") long id);
-
-
 
 
 }
