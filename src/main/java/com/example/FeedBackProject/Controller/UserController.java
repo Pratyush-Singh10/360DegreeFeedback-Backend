@@ -59,6 +59,11 @@ public class UserController {
         return userService.findEmployeesUnderManager(email);
     }
 
+    @GetMapping("/employeesUnderBUHead/{email}")
+    public List<Object[]> findEmployeesUnderBUHead(@PathVariable String email) {
+        return userService.findEmployeesUnderBUHead(email);
+    }
+
     @PostMapping("/postDetails")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);

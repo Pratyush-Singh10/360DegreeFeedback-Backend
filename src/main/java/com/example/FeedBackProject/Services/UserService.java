@@ -1,10 +1,7 @@
 package com.example.FeedBackProject.Services;
-<<<<<<< HEAD
-=======
 
 
 import com.example.FeedBackProject.Entity.Role;
->>>>>>> 58a6143dfa1fcfe28a8546405e805f8fc2097b4c
 import com.example.FeedBackProject.Entity.User;
 import com.example.FeedBackProject.Repository.RoleRepository;
 import com.example.FeedBackProject.Repository.UserRepository;
@@ -141,6 +138,11 @@ public class UserService {
 
     public List<Object[]> findEmployeesUnderManager(String email) {
         List<Object[]> employees=userRepository.findEmployeesUnderManager(email);
+        return employees;
+    }
+
+    public List<Object[]> findEmployeesUnderBUHead(String email) {
+        List<Object[]> employees=userRepository.findEmployeesUnderBUHead(email);
         return employees;
     }
 
