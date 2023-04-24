@@ -17,10 +17,12 @@ public interface UserRepository extends JpaRepository<User,String > {
     User findByEmailId(String s);
     List<User> findByManagerEmpId(String managerEmpId);
 
+    User findByEmpId(String empId);
 
 
 
-    @Query(value = "select name, email_id from user where manager_email_id=:email", nativeQuery = true)
+
+    @Query(value = "select name, email_id from user u1 where manager_emp_id=(select emp_id from user u2 where u2.email_id=:email) ", nativeQuery = true)
     List<Object[]> findEmployeesUnderManager(@Param("email") String email);
 
 
