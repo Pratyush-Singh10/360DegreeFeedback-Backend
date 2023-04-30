@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public interface FeedbackRequestRepository extends JpaRepository<FeedbackRequest, Long> {
 
-
     List<FeedbackRequest> findByrEmailAndStatus(String rEmail, int status);
 
     List<FeedbackRequest> findByrEmail(String rEmail);

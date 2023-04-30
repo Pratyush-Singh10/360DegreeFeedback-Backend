@@ -71,21 +71,23 @@ public class FeedbackRequestService {
         List<Map<String, Object>> feedbackList = new ArrayList<>();
         List<FeedbackRequest> feedbackRequests = feedbackRequestRepository.findByrEmail(email);
         for (FeedbackRequest feedbackRequest : feedbackRequests) {
-            Map<String, Object> feedbackMap = new HashMap<>();
-            feedbackMap.put("feedbackId", feedbackRequest.getFeedbackId());
-            feedbackMap.put("projectName", feedbackRequest.getProjectName());
-            feedbackMap.put("feedbackProvider", feedbackRequest.getGEmail());
-            feedbackMap.put("selfInput", feedbackRequest.getSelfInput());
-            feedbackMap.put("startDate", feedbackRequest.getStartDate());
-            feedbackMap.put("endDate", feedbackRequest.getEndDate());
-            feedbackMap.put("feedbackComment", feedbackRequest.getFeedbackComment());
-            List<Result> results = resultRepository.findByFeedbackId(feedbackRequest);
-            for (Result result : results) {
-                Questions attribute = result.getAttributeId();
-                feedbackMap.put(attribute.getAttribute(), result.getRating());
+            if (feedbackRequest.getStatus() == 1) {
+                Map<String, Object> feedbackMap = new HashMap<>();
+                feedbackMap.put("feedbackId", feedbackRequest.getFeedbackId());
+                feedbackMap.put("projectName", feedbackRequest.getProjectName());
+                feedbackMap.put("feedbackProvider", feedbackRequest.getGEmail());
+                feedbackMap.put("selfInput", feedbackRequest.getSelfInput());
+                feedbackMap.put("startDate", feedbackRequest.getStartDate());
+                feedbackMap.put("endDate", feedbackRequest.getEndDate());
+                feedbackMap.put("feedbackComment", feedbackRequest.getFeedbackComment());
+                List<Result> results = resultRepository.findByFeedbackId(feedbackRequest);
+                for (Result result : results) {
+                    Questions attribute = result.getAttributeId();
+                    feedbackMap.put(attribute.getAttribute(), result.getRating());
+                }
+                feedbackList.add(feedbackMap);
             }
-            feedbackList.add(feedbackMap);
         }
-        return feedbackList;
+            return feedbackList;
     }
 }

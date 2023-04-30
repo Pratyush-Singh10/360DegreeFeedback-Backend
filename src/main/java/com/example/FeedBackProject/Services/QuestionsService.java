@@ -29,9 +29,9 @@ public class QuestionsService {
     }
 
     public List<Questions> getAllQuestions() {
-
         return questionsRepository.findAll();
     }
+
     public Questions updateQueStatus(long id, int val) {
         Questions newQue = questionsRepository.findById(id).orElse(null);
         newQue.setStatus(val);
