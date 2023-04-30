@@ -28,8 +28,9 @@ public interface UserRepository extends JpaRepository<User,String > {
     List<Object[]> findEmployeesUnderBUHead(@Param("email") String email);
 
 
-    @Query(value = "SELECT * FROM user WHERE bu_name = (SELECT bu_name FROM user WHERE email_id = :email) AND email_id != :email",nativeQuery = true)
+    @Query(value = "SELECT name, email_id FROM user WHERE bu_name = " +
+            "(SELECT bu_name FROM user WHERE email_id = :email) " +
+            "AND email_id != :email",nativeQuery = true)
     List<User> findUserByBU(@Param("email") String email);
-
 
 }

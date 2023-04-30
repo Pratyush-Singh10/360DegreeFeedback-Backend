@@ -30,4 +30,9 @@ public class ResultController {
     public Map<String, Object> storeResult(@PathVariable Long id, @RequestBody Map<String , Object> map) {
         return resultService.storeResult(id, map);
     }
+
+    @GetMapping("/avgRating/{email}")
+    public List<Object[]> avgRatings(@PathVariable String email) {
+        return resultService.getAvgRating(email);
+    }
 }
