@@ -20,7 +20,7 @@ public class JwtTokenUtils {
                 .setIssuer("JVPN")
                 .claim("role", "USER")
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
+//                .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
     }
