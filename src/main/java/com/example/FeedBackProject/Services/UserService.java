@@ -38,13 +38,10 @@ public class UserService {
 
         User user=this.userRepository.findByEmailId(map.get("email"));
         if(user==null) {
-//            BCryptPasswordEncoder b = new BCryptPasswordEncoder();
-//            String password = b.encode("password");
             User newUser = new User();
             newUser.setEmpId(map.get("sub"));
             newUser.setEmailId(map.get("email"));
             newUser.setName(map.get("name"));
-//            newUser.setPassword(password);
             userRepository.save(newUser);
             return newUser;
         }

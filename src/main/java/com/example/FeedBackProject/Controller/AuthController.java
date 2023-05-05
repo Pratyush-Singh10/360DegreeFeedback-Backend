@@ -33,9 +33,6 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
         try{
             User user = this.userService.decodeGoogleToken(authRequest.getToken());
-//            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, "PASSWORD"));
-//            System.out.println("HERE");
-//            User user = (User) authentication.getPrincipal();
             String accessToken = jwtTokenUtil.generateAccessToken(user);
             AuthResponse authResponse = new AuthResponse(user.getEmailId(),user.getName(), accessToken);
             return new ResponseEntity<>(authResponse, HttpStatus.OK);

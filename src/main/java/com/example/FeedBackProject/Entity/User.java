@@ -25,13 +25,10 @@ public class User implements UserDetails{
     @Id
     private String empId;
 
-
     private String name;
     private String emailId;
 
     private String managerEmpId;
-
-//    private String password;
 
     private String buName;
 
