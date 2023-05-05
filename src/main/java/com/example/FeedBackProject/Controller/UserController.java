@@ -21,7 +21,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private UserRepository user;
+    private UserRepository userRepository;
 
 //    @PostMapping("/login")
 //    public ResponseEntity<Object> login(@RequestBody String token) {
