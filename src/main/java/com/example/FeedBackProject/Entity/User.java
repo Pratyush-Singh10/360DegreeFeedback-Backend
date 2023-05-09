@@ -31,6 +31,8 @@ public class User implements UserDetails{
 
     private String buName;
 
+    private String hod;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
@@ -65,6 +67,18 @@ public class User implements UserDetails{
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "empId='" + empId + '\'' +
+                ", name='" + name + '\'' +
+                ", emailId='" + emailId + '\'' +
+                ", managerEmpId='" + managerEmpId + '\'' +
+                ", buName='" + buName + '\'' +
+                ", hod='" + hod + '\'' +
+                '}';
     }
 }
 

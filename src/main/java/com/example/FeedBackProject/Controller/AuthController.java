@@ -5,6 +5,7 @@ import com.example.FeedBackProject.Security.JwtTokenUtils;
 import com.example.FeedBackProject.Services.UserService;
 import com.example.FeedBackProject.utils.AuthRequest;
 import com.example.FeedBackProject.utils.AuthResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +33,13 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
         try{
+            System.out.println(authRequest.getToken());
             User user = this.userService.decodeGoogleToken(authRequest.getToken());
             String accessToken = jwtTokenUtil.generateAccessToken(user);
             AuthResponse authResponse = new AuthResponse(user.getEmailId(),user.getName(), accessToken);
             return new ResponseEntity<>(authResponse, HttpStatus.OK);
         }
-        catch (BadCredentialsException ex){
+        catch (BadCredentialsException | JsonProcessingException ex){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

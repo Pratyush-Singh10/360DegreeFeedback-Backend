@@ -1,14 +1,20 @@
 package com.example.FeedBackProject.Services;
+
 import com.example.FeedBackProject.Entity.Role;
 import com.example.FeedBackProject.Entity.User;
 import com.example.FeedBackProject.Repository.RoleRepository;
 import com.example.FeedBackProject.Repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +30,7 @@ public class UserService {
     private RoleRepository roleRepository;
 
 
-        public User decodeGoogleToken(String token) {
+    public User decodeGoogleToken(String token) throws JsonProcessingException {
         String[] chunks = token.split("\\.");
         String payload = new String(Base64.decodeBase64(chunks[1]));
         Map<String, String> map = new HashMap<>();
@@ -36,48 +42,39 @@ public class UserService {
             e.printStackTrace();
         }
 
-        User user=this.userRepository.findByEmailId(map.get("email"));
+        String emailId = map.get("email");
+        User user = this.userRepository.findByEmailId(emailId);
         if(user==null) {
+            String url = "http://localhost:4546/darwinData/api/getByEmail";
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            Map<String, String> requestBody = new HashMap<>();
+            requestBody.put("email", emailId);
+            System.out.println(emailId+"\n");
+            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody);
+
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
+            System.out.println("Here the Pointer");
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map<String, Object> responseMap = objectMapper.readValue(responseEntity.getBody(), new TypeReference<Map<String, Object>>() {
+            });
+            System.out.println(responseMap+"\n");
+
             User newUser = new User();
-            newUser.setEmpId(map.get("sub"));
-            newUser.setEmailId(map.get("email"));
-            newUser.setName(map.get("name"));
+            newUser.setEmpId((String) responseMap.get("empId"));
+            newUser.setEmailId((String) responseMap.get("emailId"));
+            newUser.setName((String) responseMap.get("name"));
+            newUser.setManagerEmpId((String) responseMap.get("managerEmpId"));
+            newUser.setBuName((String) responseMap.get("buName"));
+            newUser.setHod((String) responseMap.get("hod"));
+            System.out.println(newUser+"\n");
+
             userRepository.save(newUser);
             return newUser;
         }
         return user;
     }
-//    public Map<String, Object> login(String token) {
-//
-//        String[] chunks = token.split("\\.");
-//        String payload = new String(Base64.decodeBase64(chunks[1]));
-//        Map<String, String> map = new HashMap<>();
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            map = mapper.readValue(payload, new TypeReference<Map<String, String>>() {
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        String password = "PASSWORD";
-//        Map<String, Object> response = new HashMap<>();
-//        User user = userRepository.findByEmailId(map.get("email"));
-//
-//        if (user==null) {
-//            User newUser = new User();
-//            newUser.setEmpId(map.get("sub"));
-//            newUser.setEmailId(map.get("email"));
-//            newUser.setName(map.get("name"));
-//            newUser.setPassword(password);
-//            userRepository.save(newUser);
-//            response.put("user", newUser);
-//        } else {
-//            response.put("message ", "Login Successful");
-//            response.put("user", user);
-//        }
-//        User newUser = (User) response.get("user");
-//        return response;
-//    }
 
     public User getUserByEmail(String email) {
         return userRepository.findByEmailId(email);
@@ -91,6 +88,7 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+//To Update the role of USER
 //    public User updateUser(String emailId, User usr) {
 //        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
 //        if (optionalUser.isPresent()) {
@@ -113,7 +111,7 @@ public class UserService {
 //
 //}
 
-//
+//To make USER InActive
 //    public void updateUserIsActive(String emailId) {
 //        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
 //        if (optionalUser.isPresent()) {
