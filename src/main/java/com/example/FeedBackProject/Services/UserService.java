@@ -44,35 +44,8 @@ public class UserService {
 
         String emailId = map.get("email");
         User user = this.userRepository.findByEmailId(emailId);
-        if(user==null) {
-            String url = "http://localhost:4546/darwinData/api/getByEmail";
-
-            RestTemplate restTemplate = new RestTemplate();
-
-            Map<String, String> requestBody = new HashMap<>();
-            requestBody.put("email", emailId);
-            System.out.println(emailId+"\n");
-            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody);
-
-            ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
-            System.out.println("Here the Pointer");
-            ObjectMapper objectMapper = new ObjectMapper();
-            Map<String, Object> responseMap = objectMapper.readValue(responseEntity.getBody(), new TypeReference<Map<String, Object>>() {
-            });
-            System.out.println(responseMap+"\n");
-
-            User newUser = new User();
-            newUser.setEmpId((String) responseMap.get("empId"));
-            newUser.setEmailId((String) responseMap.get("emailId"));
-            newUser.setName((String) responseMap.get("name"));
-            newUser.setManagerEmpId((String) responseMap.get("managerEmpId"));
-            newUser.setBuName((String) responseMap.get("buName"));
-            newUser.setHod((String) responseMap.get("hod"));
-            System.out.println(newUser+"\n");
-
-            userRepository.save(newUser);
-            return newUser;
-        }
+        user.setProfile(map.get("picture"));
+        userRepository.save(user);
         return user;
     }
 
@@ -110,16 +83,6 @@ public class UserService {
 //    }
 //
 //}
-
-//To make USER InActive
-//    public void updateUserIsActive(String emailId) {
-//        Optional<User> optionalUser = Optional.ofNullable(userRepository.findByEmailId(emailId));
-//        if (optionalUser.isPresent()) {
-//            User existingUser = optionalUser.get();
-//            existingUser.setIsActive(0);
-//            userRepository.save(existingUser);
-//        }
-//    }
 
     public List<Object[]> findEmployeesUnderManager(String email) {
         List<Object[]> employees=userRepository.findEmployeesUnderManager(email);

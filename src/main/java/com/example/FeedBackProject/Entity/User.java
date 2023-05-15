@@ -32,6 +32,8 @@ public class User implements UserDetails{
     private String buName;
 
     private String hod;
+    private boolean isActive;
+    private String profile;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

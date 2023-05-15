@@ -33,7 +33,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest authRequest){
         try{
-            System.out.println(authRequest.getToken());
             User user = this.userService.decodeGoogleToken(authRequest.getToken());
             String accessToken = jwtTokenUtil.generateAccessToken(user);
             AuthResponse authResponse = new AuthResponse(user.getEmailId(),user.getName(), accessToken);
