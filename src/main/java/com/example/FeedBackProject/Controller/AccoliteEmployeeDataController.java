@@ -29,7 +29,8 @@ public class AccoliteEmployeeDataController {
     @Autowired
     private UserRepository userRepository;
 
-    @Scheduled(cron = "0 15 0 * * ?")
+//    @Scheduled(cron = "0 15 0 * * ?")
+    @GetMapping("/employees")
     public Map<String, String> getEmployees() throws IOException {
         System.out.println("Started");
 
@@ -55,6 +56,8 @@ public class AccoliteEmployeeDataController {
 
         HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
 
+        System.out.println("Over Here Now");
+
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -62,6 +65,8 @@ public class AccoliteEmployeeDataController {
 
 
         List<AccoliteEmployeeData> employeeDataList = objectMapper.convertValue(responseMap.get("employee_data"), new TypeReference<List<AccoliteEmployeeData>>(){});
+
+        System.out.println(employeeDataList);
 
         Set<String> oldSet = new HashSet<>();
         Set<String> newSet = new HashSet<>();

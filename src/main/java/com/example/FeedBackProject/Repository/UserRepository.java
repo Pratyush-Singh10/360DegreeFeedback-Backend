@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<User,String > {
 
 
     User findByEmailId(String s);
+
+//    User findByName(String s);
     List<User> findByManagerEmpId(String managerEmpId);
 
     User findByEmpId(String empId);
@@ -32,5 +34,11 @@ public interface UserRepository extends JpaRepository<User,String > {
             "(SELECT bu_name FROM user WHERE email_id = :email) " +
             "AND email_id != :email",nativeQuery = true)
     List<User> findUserByBU(@Param("email") String email);
+
+//    @Query(value = "SELECT emp.name FROM User emp " +
+//            "WHERE lower(emp.name) LIKE lower(CONCAT('%', :var, '%')) " +
+//            "OR lower(emp.name) LIKE lower(CONCAT('%', :var)) " +
+//            "OR lower(emp.name) LIKE lower(CONCAT(:var, '%'))",nativeQuery = true)
+//    List<Object[]> getEmpByName(String var);
 
 }

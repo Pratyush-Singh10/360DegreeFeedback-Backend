@@ -18,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -146,6 +148,15 @@ public class UserService {
             List<User> user=userRepository.findUserByBU(email);
             return user;
         }
-    }
+
+//    public List<Object[]> getEmp(String var){
+//        List<Object[]> searchResults = userRepository.getEmpByName(var);
+//        return searchResults;
+//    }
+//
+//    public User getEmpName(String name){
+//        return userRepository.findByName(name);
+//    }
+}
 
 

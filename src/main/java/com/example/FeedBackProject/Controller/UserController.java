@@ -23,11 +23,6 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-//    @PostMapping("/login")
-//    public ResponseEntity<Object> login(@RequestBody String token) {
-//        Map<String, Object> response = userService.login(token);
-//        return new ResponseEntity<>(response, HttpStatus.OK);
-//    }
 
     @GetMapping("/getDetails/{email}")
     public User getUserByEmail(@PathVariable String email) {
@@ -93,13 +88,17 @@ public class UserController {
             return nUser;
         }
 
-    }
+    //    @GetMapping("/Emp")
+    //    public List<Object[]> getAllEmployee(@RequestParam("var") String var) {
+    //        return userService.getEmp(var);
+    //    }
 
-//    @GetMapping("/checkByEmail/{emailId}")
-//    public ResponseEntity<Boolean> isEmailIdPresent(@PathVariable String emailId) {
-//        Boolean isPresent = userService.isEmailIdPresent(emailId);
-//        return ResponseEntity.ok(isPresent);
-//    }
+    //    @GetMapping("/empByName/{name}")
+    //    public User getAllEmp(@PathVariable String name){
+    //        System.out.println("here");
+    //        return userService.getEmpName(name);
+    //    }
+}
 
 
 
