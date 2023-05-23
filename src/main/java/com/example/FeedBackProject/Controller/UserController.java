@@ -88,6 +88,11 @@ public class UserController {
             return nUser;
         }
 
+    @GetMapping("/hod/{emailId}")
+    public List<User> getUsersByHod(@PathVariable String emailId) {
+        return userService.getUsersByHod(emailId);
+    }
+
     //    @GetMapping("/Emp")
     //    public List<Object[]> getAllEmployee(@RequestParam("var") String var) {
     //        return userService.getEmp(var);

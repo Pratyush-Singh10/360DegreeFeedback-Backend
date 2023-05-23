@@ -149,6 +149,14 @@ public class UserService {
             return user;
         }
 
+    public List<User> getUsersByHod(String emailId) {
+        User user = userRepository.findByEmailId(emailId);
+        if (user != null) {
+            String empId = user.getEmpId();
+            return userRepository.findByHod(empId);
+        }
+        return null;
+    }
 //    public List<Object[]> getEmp(String var){
 //        List<Object[]> searchResults = userRepository.getEmpByName(var);
 //        return searchResults;
