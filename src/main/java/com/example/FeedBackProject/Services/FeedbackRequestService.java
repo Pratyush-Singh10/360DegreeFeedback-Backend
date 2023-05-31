@@ -19,6 +19,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,32 +63,41 @@ public class FeedbackRequestService {
     public List<FeedbackRequest> getFeedbackRequestsByEmailAndStatus(String rEmail, int status) {
         return feedbackRequestRepository.findByrEmailAndStatus(rEmail, status);
     }
-
-
     @Autowired
     ResultRepository resultRepository;
-
-    public List<Map<String, Object>> getFeedbackByRequesterEmail(String email) {
+    public List<Map<String, Object>> getFeedbackByRequesterEmailAndYear(String email, Integer year) {
         List<Map<String, Object>> feedbackList = new ArrayList<>();
         List<FeedbackRequest> feedbackRequests = feedbackRequestRepository.findByrEmail(email);
         for (FeedbackRequest feedbackRequest : feedbackRequests) {
             if (feedbackRequest.getStatus() == 1) {
-                Map<String, Object> feedbackMap = new HashMap<>();
-                feedbackMap.put("feedbackId", feedbackRequest.getFeedbackId());
-                feedbackMap.put("projectName", feedbackRequest.getProjectName());
-                feedbackMap.put("feedbackProvider", feedbackRequest.getGEmail());
-                feedbackMap.put("selfInput", feedbackRequest.getSelfInput());
-                feedbackMap.put("startDate", feedbackRequest.getStartDate());
-                feedbackMap.put("endDate", feedbackRequest.getEndDate());
-                feedbackMap.put("feedbackComment", feedbackRequest.getFeedbackComment());
-                List<Result> results = resultRepository.findByFeedbackId(feedbackRequest);
-                for (Result result : results) {
-                    Questions attribute = result.getAttributeId();
-                    feedbackMap.put(attribute.getAttribute(), result.getRating());
+                String startDateStr = feedbackRequest.getStartDate();
+                String endDateStr = feedbackRequest.getEndDate();
+                LocalDate startDate = LocalDate.parse(startDateStr);
+                LocalDate endDate = LocalDate.parse(endDateStr);
+
+                int startYear = startDate.getYear();
+                int endYear = endDate.getYear();
+
+                if (startYear == year || year == endYear) {
+                    Map<String, Object> feedbackMap = new HashMap<>();
+                    feedbackMap.put("feedbackId", feedbackRequest.getFeedbackId());
+                    feedbackMap.put("projectName", feedbackRequest.getProjectName());
+                    feedbackMap.put("feedbackProvider", feedbackRequest.getGEmail());
+                    feedbackMap.put("selfInput", feedbackRequest.getSelfInput());
+                    feedbackMap.put("startDate", startDate);
+                    feedbackMap.put("endDate", endDate);
+                    feedbackMap.put("feedbackComment", feedbackRequest.getFeedbackComment());
+                    List<Result> results = resultRepository.findByFeedbackId(feedbackRequest);
+                    for (Result result : results) {
+                        Questions attribute = result.getAttributeId();
+                        feedbackMap.put(attribute.getAttribute(), result.getRating());
+                    }
+                    feedbackList.add(feedbackMap);
                 }
-                feedbackList.add(feedbackMap);
             }
         }
-            return feedbackList;
+        return feedbackList;
     }
+
+
 }

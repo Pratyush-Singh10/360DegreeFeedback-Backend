@@ -58,9 +58,9 @@ public class FeedbackRequestController {
         return feedbackRequestService.getFeedbackRequestsByEmailAndStatus(rEmail, status);
     }
 
-    @GetMapping("/getResults/{email}")
-    public List<Map<String, Object>> getFeedback(@PathVariable String email) {
-        return feedbackRequestService.getFeedbackByRequesterEmail(email);
+    @GetMapping("/getResults/{email}/{year}")
+    public List<Map<String, Object>> getFeedback(@PathVariable String email,@PathVariable Integer year) {
+        return feedbackRequestService.getFeedbackByRequesterEmailAndYear(email, year);
     }
 
 }
